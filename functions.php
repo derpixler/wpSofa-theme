@@ -4,6 +4,18 @@ function child_theme_styles() {
 	wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
 	wp_enqueue_style('child-theme-css', get_stylesheet_directory_uri() . '/style.css', array('parent-style'));
 
+	echo '<pre>';
+	print_r([
+		        'DEBUG_LOCATION' => ['PATH' => dirname(__FILE__), 'FILE' => basename(__FILE__), 'FUNCTION' => __FUNCTION__ . ':' . __LINE__],
+		        'DEBUG'          => [
+			        'glob' => glob(get_stylesheet_directory() . '/assest/dist/*.css' ),
+			        'get_template_directory()' => get_stylesheet_directory()
+		        ]
+	        ]);
+	die();
+
+	wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
+
 }
 
 add_action('wp_enqueue_scripts', 'child_theme_styles');
