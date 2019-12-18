@@ -4,17 +4,14 @@ function child_theme_styles() {
 	wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
 	wp_enqueue_style('child-theme-css', get_stylesheet_directory_uri() . '/style.css', array('parent-style'));
 
-	echo '<pre>';
-	print_r([
-		        'DEBUG_LOCATION' => ['PATH' => dirname(__FILE__), 'FILE' => basename(__FILE__), 'FUNCTION' => __FUNCTION__ . ':' . __LINE__],
-		        'DEBUG'          => [
-			        'glob' => glob(get_stylesheet_directory() . '/assets/dist/style.*.css' ),
-		        ]
-	        ]);
-	die();
+	$assetsPath = '/assets/dist/';
+	$cssFiles = glob(get_stylesheet_directory() . $assetsPath . 'style.*.css' );
 
-	wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
-
+	foreach($cssFiles as $cssFile){
+        $cssFile = basename($cssFile);
+        $cssFileHash = explode('.',$cssFile);
+	    wp_enqueue_style('style-' . $cssFileHash[1], get_stylesheet_directory_uri() . $assetsPath . $cssFile, null, $cssFileHash[1]);
+    }
 }
 
 add_action('wp_enqueue_scripts', 'child_theme_styles');

@@ -38,7 +38,7 @@ $player['mediafiles'] = [
 	get_post_meta($player['episode']->ID, '_dipo_mediafile3', true),
 ]; ?>
 
-<section>
+<section class="podcastPlayer">
 	<?php get_template_part($player['themePartName'] . 'cover'); ?>
 	<?php get_template_part($player['themePartName'] . 'player'); ?>
 	<?php get_template_part($player['themePartName'] . 'content'); ?>

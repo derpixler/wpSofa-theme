@@ -1,12 +1,3 @@
-#container {
-	display: flex;
-	justify-content: space-around;
-
-	#scss {
-		color: red;
-
-		&:hover {
-			color: blue;
-		}
-	}
+.podcastPlayer {
+    border:1px solid red;
 }
