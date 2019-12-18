@@ -8,8 +8,7 @@ function child_theme_styles() {
 	print_r([
 		        'DEBUG_LOCATION' => ['PATH' => dirname(__FILE__), 'FILE' => basename(__FILE__), 'FUNCTION' => __FUNCTION__ . ':' . __LINE__],
 		        'DEBUG'          => [
-			        'glob' => glob(get_stylesheet_directory() . '/assest/dist/*.css' ),
-			        'get_template_directory()' => get_stylesheet_directory()
+			        'glob' => glob(get_stylesheet_directory() . '/assets/dist/style.*.css' ),
 		        ]
 	        ]);
 	die();
