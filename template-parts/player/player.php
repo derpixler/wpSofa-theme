@@ -9,3 +9,5 @@
 ?>
 
 audio player
+
+<div id="waveform"></div>

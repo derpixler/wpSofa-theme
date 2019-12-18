@@ -3,23 +3,12 @@ const path = require('path');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const downloadExternal    = require('./assets/webpack/downloadExternalAssets.webpack');
-const externalsOutputPathJS  = path.resolve('./assets', 'js', 'external');
+var glob = require("glob");
 
 module.exports = async (env, argv) => {
-    // External Sources Preparing
-    const externalSourcesJS = [
-        "https://unpkg.com/wavesurfer.js"
-    ];
-
-    // Path to put the external assets to
-    for (const assetUrl of externalSourcesJS) {
-        let path = await downloadExternal(assetUrl, externalsOutputPathJS);
-    }
-
     const config = {
         entry: {
-            main: './assets/js/imports.js'
+            main: glob.sync('./assets/js/**/*.js')
         },
         output: {
             path: path.resolve(__dirname, 'assets/dist'),
