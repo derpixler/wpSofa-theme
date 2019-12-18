@@ -1,0 +1,9 @@
+{
+  "name": "derpixler/wpSofa-twentytwenty",
+  "description": "",
+  "license": "GPL-2.0",
+  "type": "wordpress-theme",
+  "require": {
+    "php": ">=7.3"
+  }
+}
