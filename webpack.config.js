@@ -7,6 +7,7 @@ const glob = require("glob");
 
 module.exports = async (env, argv) => {
     const config = {
+        devtool: 'source-map',
         entry: {
             main: glob.sync('./assets/js/**/*.js')
         },
@@ -25,7 +26,13 @@ module.exports = async (env, argv) => {
                 },
                 {
                     test: /\.s[c|a]ss$/,
-                    use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
+                    use: [
+                        'style-loader',
+                        MiniCssExtractPlugin.loader,
+                        'css-loader',
+                        'postcss-loader',
+                        'sass-loader?sourceMap'
+                        ]
                 }
             ]
         },
