@@ -1,9 +1,14 @@
 console.log('fooo');
 
-const WaveSurfer = require('wavesurfer');
+    import WaveSurfer from 'wavesurfer.js';
 
-var wavesurfer = WaveSurfer.create({
-    container: '#waveform'
-});
+    var wavesurfer = WaveSurfer.create( {
+        container: document.querySelector( '#wave' ),
+        backend  : 'MediaElement'
+    } );
 
-wavesurfer.load('https://cdn.podseed.org/wpsofa/wp-sofa-news-38.mp3');
+    wavesurfer.load( 'http://wpsofa.podcast/wp-content/themes/wpsofa-theme/assets/WCEU-Waputett.WAV' );
+
+    document
+      .querySelector( '[data-action="play"]' )
+      .addEventListener( 'click', wavesurfer.playPause.bind( wavesurfer ) );

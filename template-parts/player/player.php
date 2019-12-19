@@ -10,4 +10,13 @@
 
 audio player
 
-<div id="waveform"></div>
+<div id="wave"></div>
+<div class="controls">
+	<button class="btn btn-primary" data-action="play">
+		<i class="glyphicon glyphicon-play"></i>
+		Play
+		/
+		<i class="glyphicon glyphicon-pause"></i>
+		Pause
+	</button>
+</div>
