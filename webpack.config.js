@@ -2,7 +2,7 @@
 const path = require('path');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const glob = require("glob");
 const AssetsPlugin = require('assets-webpack-plugin');
 const assetsPluginInstance = new AssetsPlugin();
@@ -19,7 +19,7 @@ module.exports = async (env, argv) => {
             files.map((file) => {
                 const pattern = moduleBase+"[\\/](.*?)[\\/]assets[\\/]js[\\/](.*?)\.js([\\/]|$)";
                 const entry = file.match(pattern);
-                entries[entry[1]] = './' + entry[0];
+                entries[entry[1]] = './' + moduleBase + '/' + entry[1] + '/webpack.imports.js';
             });
         }
 
@@ -31,7 +31,9 @@ module.exports = async (env, argv) => {
         entry: entries('template-parts'),
         output: {
             path: path.resolve(__dirname, 'assets/dist'),
-            filename: '[name].[chunkhash].js'
+            filename: '[name].[chunkhash].js',
+            chunkFilename: '[name].[chunkhash].js',
+            publicPath: 'assets/dist/'
         },
         module: {
             rules: [
@@ -76,7 +78,7 @@ module.exports = async (env, argv) => {
             },
         },
         plugins: [
-            new CleanWebpackPlugin('assets/dist', {}),
+            new CleanWebpackPlugin(),
             new MiniCssExtractPlugin({
                 filename: '[name].css',
             }),
