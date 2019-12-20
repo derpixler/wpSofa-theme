@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{8:function(e,o,a){"use strict";a.r(o);var n=a(0),c=a.n(n);console.log("fooo");var t=c.a.create({container:document.querySelector(".wave"),backend:"MediaElement"});t.load("http://cdn.podseed.org/wpsofa/wp-sofa-jinglepress-2.mp3 "),document.querySelector('[data-action="play"]').addEventListener("click",t.playPause.bind(t))}},[[8,1,0]]]);
-//# sourceMappingURL=player.6849736f89c313d3821d.js.map
