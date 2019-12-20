@@ -10,7 +10,7 @@
 
 audio player
 
-<div id="wave"></div>
+<div class="wave"></div>
 <div class="controls">
 	<button class="btn btn-primary" data-action="play">
 		<i class="glyphicon glyphicon-play"></i>
