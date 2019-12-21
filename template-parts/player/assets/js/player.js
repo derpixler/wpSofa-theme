@@ -1,4 +1,4 @@
-console.log('fooo');
+console.log('player');
 
     import WaveSurfer from 'wavesurfer.js';
 

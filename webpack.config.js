@@ -19,7 +19,7 @@ module.exports = async (env, argv) => {
             files.map((file) => {
                 const pattern = moduleBase+"[\\/](.*?)[\\/]assets[\\/]js[\\/](.*?)\.js([\\/]|$)";
                 const entry = file.match(pattern);
-                entries[entry[1]] = './' + moduleBase + '/' + entry[1] + '/webpack.imports.js';
+                entries[entry[1]] = './' + moduleBase + '/' + entry[1] + '/assets/webpack.imports.js';
             });
         }
 
@@ -31,9 +31,18 @@ module.exports = async (env, argv) => {
         entry: entries('template-parts'),
         output: {
             path: path.resolve(__dirname, 'assets/dist'),
-            filename: '[name].[chunkhash].js',
-            chunkFilename: '[name].[chunkhash].js',
-            publicPath: 'assets/dist/'
+            filename: '[name].bundle.[chunkhash].js',
+            chunkFilename: '[name].chunk.js',
+            publicPath: () => {
+                let pathAsArray = path.resolve(__dirname).split('/').reverse();
+                let arrayPath = [];
+
+                for(i=0;i < 3;i++){
+                    arrayPath.push(pathAsArray[i]);
+                }
+
+                return arrayPath.reverse().join("\\") + "/assets/dist/";
+            }
         },
         module: {
             rules: [
@@ -56,31 +65,10 @@ module.exports = async (env, argv) => {
                 }
             ]
         },
-        optimization: {
-            runtimeChunk: 'single',
-            splitChunks: {
-                chunks: 'all',
-                maxInitialRequests: Infinity,
-                minSize: 0,
-                cacheGroups: {
-                    vendor: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name(module) {
-                            // get the name. E.g. node_modules/packageName/not/this/part.js
-                            // or node_modules/packageName
-                            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-
-                            // npm package names are URL-safe, but some servers don't like @ symbols
-                            return `npm.${packageName.replace('@', '')}`;
-                        },
-                    }
-                },
-            },
-        },
         plugins: [
             new CleanWebpackPlugin(),
             new MiniCssExtractPlugin({
-                filename: '[name].css',
+                filename: '[name].[chunkhash].css',
             }),
             new WebpackMd5Hash(),
             new AssetsPlugin({
