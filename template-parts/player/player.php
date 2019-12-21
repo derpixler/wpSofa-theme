@@ -10,6 +10,8 @@
 
 audio player
 
+<button class="btn btn-primary" data-load-assets="1">load assets</button>
+
 <div class="wave"></div>
 <div class="controls">
 	<button class="btn btn-primary" data-action="play">
