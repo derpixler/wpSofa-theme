@@ -1,25 +1,24 @@
 // webpack v4
 const path = require('path');
 const WebpackMd5Hash = require('webpack-md5-hash');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const glob = require("glob");
 const AssetsPlugin = require('assets-webpack-plugin');
-const assetsPluginInstance = new AssetsPlugin();
 
 module.exports = async (env, argv) => {
-    const entries = (moduleBase) => {
+    const entries = (moduleBase, webpackImports) => {
         var entries = {
             coreBundle: glob.sync('./assets/js/**/*.js')
         };
 
-        const files = glob.sync('./' + moduleBase + '/**/assets/js/**/*.js');
+        const webpackFiles = glob.sync('./' + moduleBase + '/**/assets/' + webpackImports);
 
-        if(files.length > 0){
-            files.map((file) => {
-                const pattern = moduleBase+"[\\/](.*?)[\\/]assets[\\/]js[\\/](.*?)\.js([\\/]|$)";
+        if(webpackFiles.length > 0){
+            webpackFiles.map((file) => {
+                const pattern = moduleBase+"[\\/](.*?)[\\/]assets[\\/]*.+\\.js$";
                 const entry = file.match(pattern);
-                entries[entry[1]] = './' + moduleBase + '/' + entry[1] + '/assets/webpack.imports.js';
+
+                entries[entry[1]] = './' + moduleBase + '/' + entry[1] + '/assets/' + webpackImports;
             });
         }
 
@@ -28,7 +27,7 @@ module.exports = async (env, argv) => {
 
     const config = {
         devtool: 'source-map',
-        entry: entries('template-parts'),
+        entry: entries('template-parts', 'webpack.imports.js'),
         output: {
             path: path.resolve(__dirname, 'assets/dist'),
             filename: '[name].bundle.[chunkhash].js',
@@ -56,8 +55,12 @@ module.exports = async (env, argv) => {
                 {
                     test: /\.s[c|a]ss$/,
                     use: [
-                        'style-loader',
-                        MiniCssExtractPlugin.loader,
+                        {
+                            loader: 'style-loader',
+                            options: {
+                                injectType: 'singletonStyleTag'
+                            }
+                        },
                         'css-loader',
                         'postcss-loader',
                         'sass-loader?sourceMap'
@@ -67,9 +70,6 @@ module.exports = async (env, argv) => {
         },
         plugins: [
             new CleanWebpackPlugin(),
-            new MiniCssExtractPlugin({
-                filename: '[name].[chunkhash].css',
-            }),
             new WebpackMd5Hash(),
             new AssetsPlugin({
                 processOutput: function (assets) {

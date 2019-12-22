@@ -1,6 +1,14 @@
 @import "../../../../assets/scss/colors";
 
+/*** player ***/
 .podcastPlayer {
     border:1px solid $red;
+    background: yellow;
+    padding: 10px 0;
+    flex: auto;
+    transition: all 4s ease;
 
+    .controls{
+        margin: 20px;
+    }
 }
