@@ -7,17 +7,17 @@
 * @since 1.0.0
 */
 
-global $player;
-$player = [];
+global $wpSofaPlayer;
+$wpSofaPlayer = [];
 
 /* @var $theme WP_Theme */
 $theme = wp_get_theme(dirname(__FILE__));
 
 if (!empty($theme)) {
-	$player['themePartName'] = wp_basename(dirname($theme->get('Name'))) . '/' . wp_basename($theme->get('Name')) . '/';
+	$wpSofaPlayer['themePartName'] = wp_basename(dirname($theme->get('Name'))) . '/' . wp_basename($theme->get('Name')) . '/';
 }
 
-$player['episode'] = $post;
+$wpSofaPlayer['episode'] = $post;
 
 /* @var $podcastEpisode WP_Post */
 if($post->post_type !== 'dipo_podcast'){
@@ -26,21 +26,21 @@ if($post->post_type !== 'dipo_podcast'){
 		                                      'post_type'        => 'dipo_podcast',
 		                                      'post_status'      => 'publish,'
 	                                      ], OBJECT);
-	$player['episode'] = $podcastEpisode[0];
+	$wpSofaPlayer['episode'] = $podcastEpisode[0];
 }
 
-$player['subtitle'] = get_post_meta($player['episode']->ID, '_dipo_subtitle', true);
-$player['summary'] = get_post_meta($player['episode']->ID, '_dipo_summary', true);
-$player['image'] = get_post_meta($player['episode']->ID, '_dipo_image', true);
-$player['mediafiles'] = [
-	get_post_meta($player['episode']->ID, '_dipo_mediafile1', true),
-	get_post_meta($player['episode']->ID, '_dipo_mediafile2', true),
-	get_post_meta($player['episode']->ID, '_dipo_mediafile3', true),
+$wpSofaPlayer['subtitle'] = get_post_meta($wpSofaPlayer['episode']->ID, '_dipo_subtitle', true);
+$wpSofaPlayer['summary'] = get_post_meta($wpSofaPlayer['episode']->ID, '_dipo_summary', true);
+$wpSofaPlayer['image'] = get_post_meta($wpSofaPlayer['episode']->ID, '_dipo_image', true);
+$wpSofaPlayer['mediafiles'] = [
+	get_post_meta($wpSofaPlayer['episode']->ID, '_dipo_mediafile1', true),
+	get_post_meta($wpSofaPlayer['episode']->ID, '_dipo_mediafile2', true),
+	get_post_meta($wpSofaPlayer['episode']->ID, '_dipo_mediafile3', true),
 ]; ?>
 
 <section class="podcastPlayer">
-	<?php get_template_part($player['themePartName'] . 'cover'); ?>
-	<?php get_template_part($player['themePartName'] . 'player'); ?>
-	<?php get_template_part($player['themePartName'] . 'content'); ?>
-	<?php get_template_part($player['themePartName'] . 'intersection'); ?>
+	<?php get_template_part($wpSofaPlayer['themePartName'] . 'cover'); ?>
+	<?php get_template_part($wpSofaPlayer['themePartName'] . 'player'); ?>
+	<?php get_template_part($wpSofaPlayer['themePartName'] . 'content'); ?>
+	<?php get_template_part($wpSofaPlayer['themePartName'] . 'intersection'); ?>
 </section>

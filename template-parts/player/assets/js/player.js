@@ -1,4 +1,3 @@
-console.log('player');
 
     import WaveSurfer from 'wavesurfer.js';
 
@@ -7,7 +6,7 @@ console.log('player');
         backend  : 'MediaElement'
     } );
 
-    wavesurfer.load( 'http://cdn.podseed.org/wpsofa/wp-sofa-jinglepress-2.mp3 ' );
+    wavesurfer.load( 'http://cdn.podseed.org/webschale/wp-sofa/wp-sofa-02.mp3' );
 
     document
       .querySelector( '[data-action="play"]' )

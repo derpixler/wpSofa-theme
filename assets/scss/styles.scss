@@ -1,0 +1,9 @@
+#site-content{
+	display:flex;
+}
+
+@media (min-width: 700px){
+	body:not(.singular) main > article{
+		flex: 1 0 70%;
+	}
+}

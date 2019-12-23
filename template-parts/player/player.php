@@ -2,23 +2,24 @@
 /**
  * The podcast player template for displaying the audio player
  *
- * @package WordPress
+ * @package    WordPress
  * @subpackage wpsofa-theme
- * @since 1.0.0
+ * @since      1.0.0
  */
+
+global $wpSofaPlayer;
+
+if(empty($wpSofaPlayer['mediafiles'])){
+	return;
+}
 ?>
 
-audio player
+<div class="madia">
+	<div class="wave" data-media-source="<?=$wpSofaPlayer['mediafiles'][0]?>"></div>
 
-<button class="btn btn-primary" data-load-assets="1">load assets</button>
-
-<div class="wave"></div>
-<div class="controls">
-	<button class="btn btn-primary" data-action="play">
-		<i class="glyphicon glyphicon-play"></i>
-		Play
-		/
-		<i class="glyphicon glyphicon-pause"></i>
-		Pause
-	</button>
+	<div class='media-controls'>
+		<progress class='progress-bar' min='0' max='100' value='0'>0% played</progress>
+		<div class='media-action' title='''>
+		<div class="play"></div>
+	</div>
 </div>

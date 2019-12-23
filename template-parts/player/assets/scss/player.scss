@@ -1,14 +1,153 @@
 @import "../../../../assets/scss/colors";
 
-/*** player ***/
-.podcastPlayer {
-    border:1px solid $red;
-    background: yellow;
-    padding: 10px 0;
-    flex: auto;
-    transition: all 4s ease;
+#site-content {
+	flex-direction: column;
 
-    .controls{
-        margin: 20px;
-    }
+	& > article {
+		order: 2;
+	}
+}
+
+.podcastPlayer {
+	border: 1px solid $red;
+	box-shadow:
+		0 1.9px 0.6px rgba(0, 0, 0, 0.009),
+		0 5.6px 2.6px rgba(0, 0, 0, 0.018),
+		0 10.5px 6.3px rgba(0, 0, 0, 0.028),
+		0 16.6px 11.9px rgba(0, 0, 0, 0.041),
+		0 23.7px 20.1px rgba(0, 0, 0, 0.058),
+		0 32.1px 31.6px rgba(0, 0, 0, 0.069),
+		0 42.2px 47.7px rgba(0, 0, 0, 0.07),
+		0 54.4px 71.1px rgba(0, 0, 0, 0.07),
+		0 70.2px 108.4px rgba(0, 0, 0, 0.07),
+		0 95px 229px rgba(0, 0, 0, 0.07);
+
+	.media-controls {
+		height: 150px;
+		background: radial-gradient(circle at top center, transparent, transparent 22%, black 20%, black);
+		position: relative;
+
+		.media-action {
+			width: 90px;
+			height: 90px;
+			background: red;
+			border-radius: 50%;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			overflow: hidden;
+			transition: background-color 0.5s ease;
+			box-shadow: 0px 0px 20px 8px rgba(0,0,0,0.17), 0px 0px 3px 2px rgba(64, 9, 9, 0.32);
+
+			&:hover{
+				background-color: blue;
+				cursor: pointer;
+				box-shadow: 0px 0px 20px 8px rgba(0,0,0,0.17), inset 0px 0px 3px 2px rgba(64, 9, 9, 0.32);
+			}
+
+			&:after{
+				content: ' ';
+				padding: 41% 65%;
+				border-radius: 50%;
+				position: absolute;
+				top: -27px;
+				z-index: 10;
+				background-image: linear-gradient(to bottom, #ffffff00, #ffa50047);
+			}
+
+			.play, .play:after, .play:before{
+				width: 1.5em;
+				height: 1.5em;
+				border-top-right-radius: 30%;
+			}
+
+			.play{
+				position: relative;
+				background-color: orange;
+				text-align: left;
+				transform: rotate(-90deg) skewX(-30deg) scale(1, 0.866);
+				top: 27%;
+				left: 30%;
+				z-index: 11;
+
+				&:after, &:before {
+					content: '';
+					position: absolute;
+					background-color: inherit;
+				}
+
+				&:before {
+					transform: rotate(-135deg) skewX(-45deg) scale(1.414,.707) translate(0,-50%);
+					z-index: 12;
+					box-shadow: 0px -3px 0px 0px rgba(0,0,0,0.17);
+				}
+
+				&:after {
+					transform: rotate(135deg) skewY(-45deg) scale(.707,1.414) translate(50%);
+					z-index: 13;
+					box-shadow: 3px 0px 0px 0px rgba(0,0,0,0.17);
+				}
+			}
+
+			.pause:before,
+			.pause:after{
+				content: ' ';
+				border-radius: 0.2em;
+				background: yellow;
+				position: absolute;
+				width: 15%;
+				height: 50%;
+				top: 25%;
+				left: 30%;
+				z-index: 11;
+				box-shadow: 2px 2px 0px 0px rgba(0,0,0,0.17);
+			}
+
+			.pause:after {
+				left: 55%;
+
+			}
+		}
+	}
+}
+
+.triangle {
+	position: relative;
+	background-color: orange;
+	text-align: left;
+}
+.triangle:before,
+.triangle:after {
+	content: '';
+	position: absolute;
+	background-color: inherit;
+}
+.triangle,
+.triangle:before,
+.triangle:after {
+	width:  10em;
+	height: 10em;
+	border-top-right-radius: 30%;
+}
+
+.triangle {
+	transform: rotate(-60deg) skewX(-30deg) scale(1,.866);
+}
+.triangle:before {
+	transform: rotate(-135deg) skewX(-45deg) scale(1.414,.707) translate(0,-50%);
+}
+.triangle:after {
+	transform: rotate(135deg) skewY(-45deg) scale(.707,1.414) translate(50%);
+}
+
+@media (min-width: 700px) {
+	#site-content {
+		flex-direction: row;
+	}
+
+	.podcastPlayer {
+		flex: 0 1 auto;
+		order: 2;
+	}
 }
