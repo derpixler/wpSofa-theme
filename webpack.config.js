@@ -53,6 +53,10 @@ module.exports = async (env, argv) => {
                     }
                 },
                 {
+                    test: /\.(woff|woff2|eot|ttf|otf)$/,
+                    loader: 'url-loader?limit=100000'
+                },
+                {
                     test: /\.s[c|a]ss$/,
                     use: [
                         {

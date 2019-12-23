@@ -7,5 +7,10 @@
  * @since 1.0.0
  */
 
-global $player; ?>
+global $wpSofaPlayer;
+
+if(empty($wpSofaPlayer['image'])){
+	return;
+}
+?>
 

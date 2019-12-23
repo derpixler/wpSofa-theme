@@ -42,5 +42,5 @@ $wpSofaPlayer['mediafiles'] = [
 	<?php get_template_part($wpSofaPlayer['themePartName'] . 'cover'); ?>
 	<?php get_template_part($wpSofaPlayer['themePartName'] . 'player'); ?>
 	<?php get_template_part($wpSofaPlayer['themePartName'] . 'content'); ?>
-	<?php get_template_part($wpSofaPlayer['themePartName'] . 'intersection'); ?>
+	<?php get_template_part($wpSofaPlayer['themePartName'] . 'userInterAction'); ?>
 </section>

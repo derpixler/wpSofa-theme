@@ -1,0 +1,71 @@
+@font-face {
+	font-family: 'wpsofa-font';
+	src: url('../fonts/wpsofa-font.eot'); /* IE9 Compat Modes */
+	src: url('../fonts/wpsofa-font.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+		 url('../fonts/wpsofa-font.woff') format('woff'), /* Pretty Modern Browsers */
+		 url('../fonts/wpsofa-font.ttf')  format('truetype'); /* Safari, Android, iOS */
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'wpsofa-font' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+@mixin icon {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	background: yellow;
+}
+
+
+$icon-twitch: "\e900";
+$icon-twitter: "\e901";
+$icon-youtube: "\e902";
+$icon-download: "\e903";
+$icon-kiss-wink-heart: "\e904";
+$icon-spotify: "\e905";
+$icon-itunes: "\e906";
+
+.icon-twitch:before {
+	@include icon;
+	content: $icon-twitch;
+}
+.icon-twitter:before {
+	@include icon;
+	content: $icon-twitter;
+}
+.icon-youtube:before {
+	@include icon;
+	content: $icon-youtube;
+}
+.icon-download:before {
+	@include icon;
+	content: $icon-download;
+}
+.icon-kiss-wink-heart:before {
+	@include icon;
+	content: $icon-kiss-wink-heart;
+}
+.icon-spotify:before {
+	@include icon;
+	content: $icon-spotify;
+}
+.icon-itunes:before {
+	@include icon;
+	content: $icon-itunes;
+}
+
