@@ -41,6 +41,6 @@ $wpSofaPlayer['mediafiles'] = [
 <section class="podcastPlayer">
 	<?php get_template_part($wpSofaPlayer['themePartName'] . 'cover'); ?>
 	<?php get_template_part($wpSofaPlayer['themePartName'] . 'player'); ?>
-	<?php get_template_part($wpSofaPlayer['themePartName'] . 'content'); ?>
 	<?php get_template_part($wpSofaPlayer['themePartName'] . 'userInterAction'); ?>
+	<?php get_template_part($wpSofaPlayer['themePartName'] . 'content'); ?>
 </section>

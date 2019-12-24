@@ -112,6 +112,35 @@
 	}
 }
 
+.userInterActions{
+	display: flex;
+	justify-content: space-between;
+
+	& > div {
+		display: flex;
+		justify-content: space-between;
+		flex: 1 0 auto;
+		padding: 0 10px;
+
+		&:first-child {
+			flex-grow: 1;
+
+			[class^="icon-"],
+			[class*=" icon-"] {
+				&:before{
+					padding-right: 10px;
+				}
+			}
+		}
+
+		&:last-child {
+			flex-grow: 3;
+			padding-left: 50px;
+			padding-right: 20px;
+		}
+	}
+}
+
 @media (min-width: 700px) {
 	#site-content {
 		flex-direction: row;
@@ -122,3 +151,4 @@
 		order: 2;
 	}
 }
+

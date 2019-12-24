@@ -9,7 +9,7 @@
 	font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+@mixin icon {
 	/* use !important to prevent issues with browser extensions that change fonts */
 	font-family: 'wpsofa-font' !important;
 	speak: none;
@@ -22,50 +22,49 @@
 	/* Better Font Rendering =========== */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
-
-@mixin icon {
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	background: yellow;
+	font-size: 26px;
+	position: relative;
+	top: 4px;
 }
 
-
-$icon-twitch: "\e900";
-$icon-twitter: "\e901";
-$icon-youtube: "\e902";
-$icon-download: "\e903";
-$icon-kiss-wink-heart: "\e904";
-$icon-spotify: "\e905";
-$icon-itunes: "\e906";
+.icon-cassette:before {
+	@include icon;
+	content: "\e904";
+}
+.icon-star-solid:before {
+	@include icon;
+	content: "\e907";
+}
+.icon-star-regular:before {
+	@include icon;
+	content: "\e908";
+}
 
 .icon-twitch:before {
 	@include icon;
-	content: $icon-twitch;
+	content: "\e900";
 }
 .icon-twitter:before {
 	@include icon;
-	content: $icon-twitter;
+	content: "\e901";
 }
 .icon-youtube:before {
 	@include icon;
-	content: $icon-youtube;
+	content: "\e902";
 }
 .icon-download:before {
 	@include icon;
-	content: $icon-download;
-}
-.icon-kiss-wink-heart:before {
-	@include icon;
-	content: $icon-kiss-wink-heart;
+	content: "\e903";
 }
 .icon-spotify:before {
 	@include icon;
-	content: $icon-spotify;
+	content: "\e905";
 }
 .icon-itunes:before {
 	@include icon;
-	content: $icon-itunes;
+	content: "\e906";
 }
 
