@@ -39,3 +39,36 @@ function load_google_fonts() {
 }
 
 add_action('wp_print_styles', 'load_google_fonts');
+
+/** add custom podcast cover formats */
+add_action( 'after_setup_theme', function (){
+	add_image_size( 'podcast-cover-small', 420, 400, true );
+	add_image_size( 'podcast-cover-medium', 600, 400, true );
+} );
+
+/**
+ * @param WP_Post $episode
+ *
+ * @return array
+ */
+function wpsofa_get_episode_cover_image(WP_Post $episode): array {
+	$episodeId = $episode->ID ?? false;
+	$coverImgId = get_post_meta( $episodeId, '_thumbnail_id', true );
+	$coverFormatPrefix = 'podcast-cover';
+	$srscet = [];
+
+	if(!$episodeId && !empty($coverImgId)){
+		return $srscet;
+	}
+
+	$imageMeta = wp_get_attachment_metadata($coverImgId);
+	$uploadsUrl = wp_get_upload_dir()['url'];
+
+	foreach($imageMeta['sizes'] as $formatKey => $formatData){
+		if(strpos($formatKey, $coverFormatPrefix) === 0) {
+			$srscet[$formatKey] = $uploadsUrl . '/' . $formatData['file'];
+		}
+	}
+
+	return $srscet;
+}

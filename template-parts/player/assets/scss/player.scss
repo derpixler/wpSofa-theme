@@ -9,6 +9,7 @@
 }
 
 .podcastPlayer {
+	padding: 0;
 	border: 1px solid $red;
 	box-shadow:
 		0 1.9px 0.6px rgba(0, 0, 0, 0.009),
@@ -22,9 +23,15 @@
 		0 70.2px 108.4px rgba(0, 0, 0, 0.07),
 		0 95px 229px rgba(0, 0, 0, 0.07);
 
+	.cover{
+		img{
+			width:100%
+		}
+	}
+
 	.media-controls {
 		height: 150px;
-		background: radial-gradient(circle at top center, transparent, transparent 22%, black 20%, black);
+		background: radial-gradient(circle at top center, transparent, transparent 22%, #fff 20%, #fff);
 		position: relative;
 
 		.media-action {
@@ -57,8 +64,8 @@
 			}
 
 			.play, .play:after, .play:before{
-				width: 1.5em;
-				height: 1.5em;
+				width: 1em;
+				height: 1em;
 				border-top-right-radius: 30%;
 			}
 
@@ -67,8 +74,8 @@
 				background-color: orange;
 				text-align: left;
 				transform: rotate(-90deg) skewX(-30deg) scale(1, 0.866);
-				top: 27%;
-				left: 30%;
+				top: 35%;
+				left: 35%;
 				z-index: 11;
 
 				&:after, &:before {

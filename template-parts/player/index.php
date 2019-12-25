@@ -26,6 +26,7 @@ if($post->post_type !== 'dipo_podcast'){
 		                                      'post_type'        => 'dipo_podcast',
 		                                      'post_status'      => 'publish,'
 	                                      ], OBJECT);
+
 	$wpSofaPlayer['episode'] = $podcastEpisode[0];
 }
 

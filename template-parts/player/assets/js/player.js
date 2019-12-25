@@ -8,6 +8,7 @@
 
     wavesurfer.load( 'http://cdn.podseed.org/webschale/wp-sofa/wp-sofa-02.mp3' );
 
-    document
+    /*document
       .querySelector( '[data-action="play"]' )
       .addEventListener( 'click', wavesurfer.playPause.bind( wavesurfer ) );
+*/
