@@ -9,17 +9,26 @@
 
 global $wpSofaPlayer;
 
-if(empty($wpSofaPlayer['mediafiles'])){
+if (empty($wpSofaPlayer['mediafiles'])) {
 	return;
 }
 ?>
 
-<div class="madia">
-	<div class="wave" data-media-source="<?=$wpSofaPlayer['mediafiles'][0]?>"></div>
+<div class='media-controls'>
+	<div class="status">
+		<span class="icon-progress-0 current-time">0:00</span>
+		<span class="icon-watch-light total-time">3:00</span>
+	</div>
 
-	<div class='media-controls'>
-		<progress class='progress-bar' min='0' max='100' value='0'>0% played</progress>
-		<div class='media-action' title='''>
-		<div class="play"></div>
+	<div class='media-action' title=''>
+		<div class="pause"></div>
 	</div>
 </div>
+
+<div class='progress'>
+	<div class="status" width='0'></div>
+</div>
+
+
+
+<!--<div class="wave" data-media-source=""></div>-->

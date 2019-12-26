@@ -40,8 +40,10 @@ $wpSofaPlayer['mediafiles'] = [
 ]; ?>
 
 <section class="podcastPlayer">
-	<?php get_template_part($wpSofaPlayer['themePartName'] . 'cover'); ?>
-	<?php get_template_part($wpSofaPlayer['themePartName'] . 'player'); ?>
+	<div class="player">
+		<?php get_template_part($wpSofaPlayer['themePartName'] . 'cover'); ?>
+		<?php get_template_part($wpSofaPlayer['themePartName'] . 'player'); ?>
+	</div>
 	<?php get_template_part($wpSofaPlayer['themePartName'] . 'userInterAction'); ?>
 	<?php get_template_part($wpSofaPlayer['themePartName'] . 'content'); ?>
 </section>
