@@ -148,6 +148,18 @@
 			.status{
 				position: absolute;
 				background-color: $blue-Dark;
+
+				&:before {
+					content: '';
+					display: inline-block;
+					width: 10px;
+					height: 10px;
+					border-radius: 7.5px;
+					background-color: $blue-Dark;
+					position: absolute;
+					top: -4px;
+					right: -10px;
+				}
 			}
 		}
 	}

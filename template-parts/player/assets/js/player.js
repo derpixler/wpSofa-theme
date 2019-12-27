@@ -10,7 +10,8 @@ class mediaPlayer {
 				player  : '.player',
 				controls: {
 					startStop  : '.media-action',
-					progressBar: '.progress .status',
+					progressBar: '.progress',
+					progressBarStatus: '.progress .status',
 					duration: '.status'
 				}
 			}
@@ -77,6 +78,7 @@ class mediaPlayer {
 				});
 
 				player.controls.startStop.addEventListener('click', (e) => this.playStop(e.currentTarget, player));
+				player.controls.progressBar.addEventListener('click', (e) => this.seek(e, player));
 
 			});
 		}
@@ -132,7 +134,7 @@ class mediaPlayer {
 			let currTimeElem = player.controls.currentTime;
 			let percent = Math.floor( ( 100 / player.audio.duration) * player.audio.currentTime );
 
-			player.controls.progressBar.style.width = percent + '%';
+			player.controls.progressBarStatus.style.width = percent + '%';
 
 			if (percent > 95) {
 				currTimeElem.dataset.progress = "90";
@@ -169,6 +171,12 @@ class mediaPlayer {
 		}
 
 		return hr + ':' + min + ':' + sec;
+	}
+
+	seek(mouse, player) {
+		let percent = mouse.offsetX / player.node.offsetWidth;
+		player.audio.currentTime = percent * player.audio.duration;
+		player.controls.progressBarStatus.style.width = percent / 100 + '%';
 	}
 
 }
