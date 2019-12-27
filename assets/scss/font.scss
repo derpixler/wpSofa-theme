@@ -72,11 +72,11 @@
 	@include icon;
 	content: "\e909";
 }
-.icon-progress[data-progress="95"]:before {
+.icon-progress[data-progress="90"]:before {
 	@include icon;
 	content: "\e90a";
 }
-.icon-progress[data-progress="80"]:before {
+.icon-progress[data-progress="75"]:before {
 	@include icon;
 	content: "\e90c";
 }

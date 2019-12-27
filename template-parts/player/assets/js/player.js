@@ -134,22 +134,16 @@ class mediaPlayer {
 
 			player.controls.progressBar.style.width = percent + '%';
 
-			switch (percent) {
-				case 95:
-					currTimeElem.dataset.progress = "95";
-					break;
-				case 80:
-					currTimeElem.dataset.progress = "80";
-					break;
-				case 50:
-					currTimeElem.dataset.progress = "50";
-					break;
-				case 25:
-					currTimeElem.dataset.progress = "25";
-					break;
-				default:
-					currTimeElem.dataset.progress = "0";
-					break;
+			if (percent > 95) {
+				currTimeElem.dataset.progress = "90";
+			} else if (percent > 80) {
+				currTimeElem.dataset.progress = "75";
+			} else if (percent > 50) {
+				currTimeElem.dataset.progress = "50";
+			} else if (percent > 25) {
+				currTimeElem.dataset.progress = "25";
+			} else {
+				currTimeElem.dataset.progress = "0";
 			}
 
 		}
