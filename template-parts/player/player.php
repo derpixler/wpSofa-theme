@@ -12,12 +12,19 @@ global $wpSofaPlayer;
 if (empty($wpSofaPlayer['mediafiles'])) {
 	return;
 }
+
 ?>
 
 <div class='media-controls'>
+	<audio controls="true">
+		<?php foreach ($wpSofaPlayer['mediafiles'] as $media) : ?>
+		<source src="<?=$media['medialink']?>" type="<?=$media['mediatype']?>" data-media-id="<?=$media['id']?>">
+		<?php endforeach; ?>
+	</audio>
+
 	<div class="status">
 		<span class="icon-progress-0 current-time">0:00</span>
-		<span class="icon-watch-light total-time">3:00</span>
+		<span class="icon-watch-light total-time"><?=$media['duration']?></span>
 	</div>
 
 	<div class='media-action' title=''>
