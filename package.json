@@ -14,7 +14,9 @@
     "IE 10"
   ],
   "dependencies": {
-    "@material/slider": "^4.0.0"
+    "@material/slider": "^4.0.0",
+    "@web-dev-media/localstorage": "^1.0.0",
+    "file-loader": "^5.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
