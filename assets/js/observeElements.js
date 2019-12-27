@@ -8,7 +8,7 @@
  * @param {number} options.entryRatio - Determines how much of the element needs to be visible to be treated as visible.
  */
 
-window.loadIsInView = function(elements, cb, options) {
+window.observeElements = function(elements, cb, options) {
   options = options || {};
   const _options = {
     loop : options.loop || false,
