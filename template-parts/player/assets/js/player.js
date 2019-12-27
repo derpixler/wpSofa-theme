@@ -1,14 +1,14 @@
+const localstorage = require('@web-dev-media/localstorage');
+const hash = require('object-hash');
 
-    import WaveSurfer from 'wavesurfer.js';
+const player = () => {
+	const mediaPlayer = document.querySelector( '.player' );
 
-    var wavesurfer = WaveSurfer.create( {
-        container: document.querySelector( '.wave' ),
-        backend  : 'MediaElement'
-    } );
 
-    wavesurfer.load( 'http://cdn.podseed.org/webschale/wp-sofa/wp-sofa-02.mp3' );
+	console.log( {
+		localstorage: localstorage,
+		hash        : hash( {fooo:'bar'} )
+	});
+};
 
-    /*document
-      .querySelector( '[data-action="play"]' )
-      .addEventListener( 'click', wavesurfer.playPause.bind( wavesurfer ) );
-*/
+export default player;

@@ -4,6 +4,7 @@ const WebpackMd5Hash = require('webpack-md5-hash');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const glob = require("glob");
 const AssetsPlugin = require('assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = async (env, argv) => {
     const entries = (moduleBase, webpackImports) => {
@@ -42,6 +43,10 @@ module.exports = async (env, argv) => {
 
                 return arrayPath.reverse().join("\\") + "/assets/dist/";
             }
+        },
+        optimization: {
+            minimize: true,
+            minimizer: [new TerserPlugin()],
         },
         module: {
             rules: [
