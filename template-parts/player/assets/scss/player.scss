@@ -11,25 +11,24 @@
 .podcastPlayer {
 	position: relative;
 	padding: 0;
-	box-shadow:
-		0 1.9px 0.6px rgba(0, 0, 0, 0.009),
-		0 5.6px 2.6px rgba(0, 0, 0, 0.018),
-		0 10.5px 6.3px rgba(0, 0, 0, 0.028),
-		0 16.6px 11.9px rgba(0, 0, 0, 0.041),
-		0 23.7px 20.1px rgba(0, 0, 0, 0.058),
-		0 32.1px 31.6px rgba(0, 0, 0, 0.069),
-		0 42.2px 47.7px rgba(0, 0, 0, 0.07),
-		0 54.4px 71.1px rgba(0, 0, 0, 0.07),
-		0 70.2px 108.4px rgba(0, 0, 0, 0.07),
-		0 95px 229px rgba(0, 0, 0, 0.07);
+	box-shadow: 0 1.9px 0.6px rgba(0, 0, 0, 0.009),
+	0 5.6px 2.6px rgba(0, 0, 0, 0.018),
+	0 10.5px 6.3px rgba(0, 0, 0, 0.028),
+	0 16.6px 11.9px rgba(0, 0, 0, 0.041),
+	0 23.7px 20.1px rgba(0, 0, 0, 0.058),
+	0 32.1px 31.6px rgba(0, 0, 0, 0.069),
+	0 42.2px 47.7px rgba(0, 0, 0, 0.07),
+	0 54.4px 71.1px rgba(0, 0, 0, 0.07),
+	0 70.2px 108.4px rgba(0, 0, 0, 0.07),
+	0 95px 229px rgba(0, 0, 0, 0.07);
 
-	audio{
-		display:none;
+	audio {
+		display: none;
 	}
 
-	.cover{
-		img{
-			width:100%
+	.cover {
+		img {
+			width: 100%
 		}
 	}
 
@@ -145,7 +144,7 @@
 			height: 15px;
 			border-bottom: 12px solid $black;
 
-			.status{
+			.status {
 				position: absolute;
 				background-color: $blue-Dark;
 
@@ -165,14 +164,39 @@
 	}
 }
 
-.userInterActions{
+.userInterActions {
 	display: flex;
 	justify-content: space-between;
-	background: aliceblue;
-	padding: 10px 30px;
+	background: $black-Light;
+	padding: 5px 10px 10px;
+	color: #fff;
 
-	& > span {
-		padding: 0 10px;
+	div:first-child,
+	div:last-child {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	div:first-child {
+		flex-grow: 1;
+	}
+
+	div:last-child {
+		flex-grow: 2;
+		padding-left: 80px;
+	}
+
+	[class^="icon-"], [class*=" icon-"] {
+		font-size: 14px;
+
+		&:before {
+			font-size: 20px;
+			padding-right: 10px;
+		}
+	}
+
+	[class^="icon-star-"]:before {
+		top: 2px;
 	}
 }
 

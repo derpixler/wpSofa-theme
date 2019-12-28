@@ -1,16 +1,11 @@
 /**
- * registers a function  that use a filter/hook 'this.doFilter()'
- * this function can modify the code execution or data
+ * here comes the wpSofa podcast media player
  */
 
 const applyfilters = require( 'applyfilters' );
 const localstorageHandle = require( '@web-dev-media/localstorage' );
 const hash = require( 'object-hash' );
 
-/**
- * registers a function  that use a filter/hook 'this.doFilter()'
- * this function can modify the code execution or data
- */
 class mediaPlayer {
 	constructor() {
 		let options = {
