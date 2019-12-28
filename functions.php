@@ -72,3 +72,24 @@ function wpsofa_get_episode_cover_image(WP_Post $episode): array {
 
 	return $srscet;
 }
+
+/**
+ * Strip table of content from episode
+ *
+ * @param WP_Post $episode
+ * @return string
+ */
+function get_tableOfContent(WP_Post $episode): string {
+	$tableOfContent = '';
+
+	if(!empty($episode)){
+		$ul = explode('</ul>', $episode->post_content);
+
+		if(!empty($ul)) {
+			$ul   = explode('<ul>', $ul[0]);
+			$tableOfContent = '<ul>' . str_replace('href="#', 'href="' . $episode->guid . '#', $ul[1]) . '</ul>';
+		}
+	}
+
+	return $tableOfContent;
+}

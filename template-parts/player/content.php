@@ -6,8 +6,19 @@
  * @subpackage wpsofa-theme
  * @since 1.0.0
  */
+
+global $wpSofaPlayer;
+
+if (empty($wpSofaPlayer['episode'])) {
+	return;
+}
+
+/** @var $episode WP_Post */
+$episode = $wpSofaPlayer['episode'];
+
 ?>
 
-<div>
-Content
+<div class="episode">
+	<h2 class="title"><a href="<?=$episode->guid?>"><?=$episode->post_title?></a></h2>
+	<?/*=get_tableOfContent($episode);*/?>
 </div>

@@ -168,7 +168,7 @@
 	display: flex;
 	justify-content: space-between;
 	background: $black-Light;
-	padding: 5px 10px 10px;
+	padding: 10px 15px 20px;
 	color: #fff;
 
 	div:first-child,
@@ -197,6 +197,28 @@
 
 	[class^="icon-star-"]:before {
 		top: 2px;
+	}
+}
+
+.episode{
+	background: $black;
+	padding: 15px 10px 10px;
+	color: #fff;
+
+	a{
+		text-decoration: none;
+		color: #fff;
+	}
+
+	li {
+		font-size: 14px;
+	}
+	.title{
+		font-size: 20px;
+		margin-top: 0;
+		a {
+			color: $blue-Light;
+		}
 	}
 }
 
