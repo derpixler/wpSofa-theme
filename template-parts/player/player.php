@@ -16,7 +16,7 @@ if (empty($wpSofaPlayer['mediafiles'])) {
 ?>
 
 <div class='media-controls'>
-	<audio controls="true">
+	<audio>
 		<?php foreach ($wpSofaPlayer['mediafiles'] as $media) : ?>
 		<source src="<?=$media['medialink']?>" type="<?=$media['mediatype']?>" data-media-id="<?=$media['id']?>">
 		<?php endforeach; ?>
