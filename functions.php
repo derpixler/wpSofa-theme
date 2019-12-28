@@ -21,7 +21,8 @@ function wpsofa_enqueue_assets() {
 			window.wpsofa = {
 				stylesheet_directory_uri: "' . get_stylesheet_directory_uri() . '",
 				stylesheet_directory: "' . get_stylesheet_directory() . '",
-				template_parts_uri: "template-parts"
+				template_parts_uri: "template-parts",
+				ajax_url: "' . admin_url( 'admin-ajax.php' ) . '"
 			};', TRUE);
 		}
 	}
@@ -93,3 +94,15 @@ function get_tableOfContent(WP_Post $episode): string {
 
 	return $tableOfContent;
 }
+
+add_action( 'wp_ajax_nopriv_like_episode', function (){
+	$metaKey = '_post_like_count';
+
+	if(!empty($_POST['post_id'])){
+		$currentVal = get_post_meta($_POST['post_id'], $metaKey, true);
+		$newVal = $currentVal+1;
+		update_post_meta($_POST['post_id'], $metaKey, $newVal);
+		echo $newVal;
+	}
+	wp_die();
+} );

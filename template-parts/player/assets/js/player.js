@@ -26,9 +26,7 @@ class mediaPlayer {
 			return options;
 		});
 
-		console.log(options);
 		this.options = options;
-
 
 		this.players = [];
 
@@ -78,14 +76,22 @@ class mediaPlayer {
 
 						playerControls.currentTime = player.querySelector( '.current-time' );
 
-						self.players.push( {
-							node        : player,
-							audio       : audio,
-							controls    : playerControls,
-							sources     : playerSources,
-							sourcesNodes: sourcesNodes,
-							hash        : hash( playerSources )
-						} );
+						let mediaPlayerObject = {
+								node        : player,
+								audio       : audio,
+								controls    : playerControls,
+								sources     : playerSources,
+								sourcesNodes: sourcesNodes,
+								hash        : hash( playerSources )
+						};
+
+						applyfilters.doFilter( 'mediaPlayerObject', mediaPlayerObject ).then((helloStr) => {
+							return mediaPlayerObject;
+						});
+
+						self.players.push(mediaPlayerObject);
+
+						console.log(self);
 					}
 
 				} );

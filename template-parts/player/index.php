@@ -30,6 +30,7 @@ if($post->post_type !== 'dipo_podcast'){
 	$wpSofaPlayer['episode'] = $podcastEpisode[0];
 }
 
+$wpSofaPlayer['likes'] = get_post_meta($wpSofaPlayer['episode']->ID, '_post_like_count', true);
 $wpSofaPlayer['subtitle'] = get_post_meta($wpSofaPlayer['episode']->ID, '_dipo_subtitle', true);
 $wpSofaPlayer['summary'] = get_post_meta($wpSofaPlayer['episode']->ID, '_dipo_summary', true);
 $wpSofaPlayer['image'] = get_post_meta($wpSofaPlayer['episode']->ID, '_dipo_image', true);
@@ -39,7 +40,7 @@ $wpSofaPlayer['mediafiles'] = [
 	get_post_meta($wpSofaPlayer['episode']->ID, '_dipo_mediafile3', true),
 ]; ?>
 
-<section class="podcastPlayer">
+<section class="podcastPlayer" data-post-id="<?=$wpSofaPlayer['episode']->ID?>">
 	<div class="player">
 		<?php get_template_part($wpSofaPlayer['themePartName'] . 'cover'); ?>
 		<?php get_template_part($wpSofaPlayer['themePartName'] . 'player'); ?>
