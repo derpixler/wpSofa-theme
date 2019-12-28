@@ -1,9 +1,19 @@
+/**
+ * registers a function  that use a filter/hook 'this.doFilter()'
+ * this function can modify the code execution or data
+ */
+
+const applyfilters = require( 'applyfilters' );
 const localstorageHandle = require( '@web-dev-media/localstorage' );
 const hash = require( 'object-hash' );
 
+/**
+ * registers a function  that use a filter/hook 'this.doFilter()'
+ * this function can modify the code execution or data
+ */
 class mediaPlayer {
 	constructor() {
-		this.options = {
+		let options = {
 			storage_key: 'wpsofa-player-storage',
 			currentPos : 0,
 			selectors  : {
@@ -17,6 +27,14 @@ class mediaPlayer {
 			}
 		};
 
+		applyfilters.doFilter( 'mediaPlayerOptions', options ).then((helloStr) => {
+			return options;
+		});
+
+		console.log(options);
+		this.options = options;
+
+
 		this.players = [];
 
 		localstorageHandle.options.cacheTime = -1;
@@ -28,6 +46,15 @@ class mediaPlayer {
 		}
 	}
 
+	/**
+	 * registers a function  that use a filter/hook 'this.doFilter()'
+	 * this function can modify the code execution or data
+	 *
+	 * @param {string} filterName
+	 * @param {string} callback
+	 * @param {number} priority
+	 * @return {void}
+	 */
 	collectPlayers() {
 		let self = this;
 
@@ -207,7 +234,6 @@ class mediaPlayer {
 
 		this.timeupdate( player );
 	}
-
 }
 
 exports = module.exports = mediaPlayer;

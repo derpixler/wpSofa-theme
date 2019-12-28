@@ -23,7 +23,7 @@ if (empty($wpSofaPlayer['mediafiles'])) {
 	</audio>
 
 	<div class="status">
-		<span class="icon-progress current-time" data-progress="25">00:00:00</span>
+		<span class="icon-progress current-time" data-progress="0">00:00:00</span>
 		<span class="icon-watch-light total-time"><?=$media['duration']?></span>
 	</div>
 

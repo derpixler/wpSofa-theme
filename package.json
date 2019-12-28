@@ -20,6 +20,7 @@
     "@babel/preset-env": "^7.7.7",
     "@material/slider": "^4.0.0",
     "@web-dev-media/localstorage": "^1.0.2",
+    "applyfilters": "^1.0.22",
     "assets-webpack-plugin": "^3.9.10",
     "autoprefixer": "^9.7.3",
     "babel-loader": "^8.0.6",
