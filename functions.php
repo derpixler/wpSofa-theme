@@ -14,7 +14,7 @@ function wpsofa_enqueue_assets() {
 		$assetFileHash   = explode('.', $assetFile)[2];
 		$assetFileHandle = explode('.', $assetFile)[0];
 
-		wp_enqueue_script('js-webpack-' . $assetFileHandle, get_stylesheet_directory_uri() . $assetsPath . $assetFile, NULL, $assetFileHash, true);
+		wp_enqueue_script('js-webpack-' . $assetFileHandle, get_stylesheet_directory_uri() . $assetsPath . $assetFile, NULL, $assetFileHash, false);
 
 		if($i === 0){
 			wp_add_inline_script('js-webpack-' . $assetFileHandle, '
@@ -23,7 +23,7 @@ function wpsofa_enqueue_assets() {
 				stylesheet_directory: "' . get_stylesheet_directory() . '",
 				template_parts_uri: "template-parts",
 				ajax_url: "' . admin_url( 'admin-ajax.php' ) . '"
-			};', TRUE);
+			};', false);
 		}
 	}
 }
@@ -44,7 +44,7 @@ add_action('wp_print_styles', 'load_google_fonts');
 /** add custom podcast cover formats */
 add_action( 'after_setup_theme', function (){
 	add_image_size( 'podcast-cover-small', 420, 400, true );
-	add_image_size( 'podcast-cover-medium', 600, 400, true );
+	add_image_size( 'podcast-cover-medium', 600, 500, true );
 } );
 
 /**

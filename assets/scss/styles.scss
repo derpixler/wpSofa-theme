@@ -44,6 +44,9 @@
 }
 
 @media (min-width: 700px) {
+	body:not(.singular) main > article {
+		margin: 0 auto;
+	}
 	.tooltip {
 		display: inline-block;
 		position: relative;

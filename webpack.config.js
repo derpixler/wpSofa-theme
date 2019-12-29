@@ -41,7 +41,7 @@ module.exports = async (env, argv) => {
                     arrayPath.push(pathAsArray[i]);
                 }
 
-                return arrayPath.reverse().join("\\") + "/assets/dist/";
+                return env.HOST + arrayPath.reverse().join("\\") + "/assets/dist/";
             }
         },
         optimization: {

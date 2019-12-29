@@ -19,6 +19,6 @@ $episode = $wpSofaPlayer['episode'];
 ?>
 
 <div class="episode">
-	<h2 class="title"><a href="<?=$episode->guid?>"><?=$episode->post_title?></a></h2>
+	<h2 class="title"><a href="<?=home_url() . '/' . $episode->post_name?>"><?=$episode->post_title?></a></h2>
 	<?/*=get_tableOfContent($episode);*/?>
 </div>
