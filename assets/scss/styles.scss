@@ -1,3 +1,13 @@
+body:not(.singular) main > article:first-of-type {
+	padding-top:0;
+}
+.entry-content{
+	audio,
+	#dipo_files_js,
+	#dipo_files_nojs{
+		display: none;
+	}
+}
 
 .tooltip{
 	position: relative;
@@ -39,14 +49,7 @@
 	}
 }
 
-#site-content{
-	display:flex;
-}
-
 @media (min-width: 700px) {
-	body:not(.singular) main > article {
-		margin: 0 auto;
-	}
 	.tooltip {
 		display: inline-block;
 		position: relative;

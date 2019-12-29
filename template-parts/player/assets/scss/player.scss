@@ -1,10 +1,7 @@
 @import "../../../../assets/scss/colors";
 
-#site-content {
-	flex-direction: column;
-}
-
 .podcastPlayer {
+	margin-bottom: 50px;
 	position: relative;
 	padding: 0;
 	box-shadow: 0 1.9px 0.6px rgba(0, 0, 0, 0.009),
@@ -238,12 +235,9 @@
 }
 
 @media (min-width: 700px) {
-	#site-content {
-		flex-direction: row;
-	}
-
 	.podcastPlayer {
-		flex: 0 1 420px;
+		width: 420px;
+		margin: 50px auto;
 	}
 }
 
