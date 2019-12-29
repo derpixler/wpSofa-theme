@@ -13,6 +13,9 @@
 
 ?>
 
+
+<?php get_template_part('template-parts/player/index'); ?>
+
 <article <?php post_class(); ?> id="post-<?php the_ID(); ?>">
 
 	<?php
@@ -92,5 +95,3 @@
 	?>
 
 </article><!-- .post -->
-
-<?php get_template_part('template-parts/player/index'); ?>

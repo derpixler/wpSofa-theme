@@ -95,7 +95,10 @@ function get_tableOfContent(WP_Post $episode): string {
 	return $tableOfContent;
 }
 
-add_action( 'wp_ajax_nopriv_like_episode', function (){
+add_action( 'wp_ajax_like_episode', 'like_episode');
+add_action( 'wp_ajax_nopriv_like_episode', 'like_episode');
+
+function like_episode(){
 	$metaKey = '_post_like_count';
 
 	if(!empty($_POST['post_id'])){
@@ -105,4 +108,4 @@ add_action( 'wp_ajax_nopriv_like_episode', function (){
 		echo $newVal;
 	}
 	wp_die();
-} );
+}

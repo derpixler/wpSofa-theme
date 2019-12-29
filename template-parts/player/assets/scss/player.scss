@@ -2,10 +2,6 @@
 
 #site-content {
 	flex-direction: column;
-
-	& > article {
-		order: 2;
-	}
 }
 
 .podcastPlayer {
@@ -188,7 +184,7 @@
 
 	[class^="icon-"], [class*=" icon-"] {
 		font-size: 14px;
-		transition: all 2s ease;
+		transition: all 1ms ease;
 
 		&:hover{
 			cursor: pointer;
@@ -212,6 +208,10 @@
 
 	.icon-star-solid, .icon-star-solid:before {
 		color: $golden;
+	}
+
+	.icon-cassette:hover{
+		cursor: default;
 	}
 }
 
@@ -243,8 +243,7 @@
 	}
 
 	.podcastPlayer {
-		flex: 0 1 auto;
-		order: 2;
+		flex: 0 1 420px;
 	}
 }
 

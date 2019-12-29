@@ -31,6 +31,7 @@ if($post->post_type !== 'dipo_podcast'){
 }
 
 $wpSofaPlayer['likes'] = get_post_meta($wpSofaPlayer['episode']->ID, '_post_like_count', true);
+$wpSofaPlayer['hits'] = get_post_meta($wpSofaPlayer['episode']->ID, 'feedpress_hits', true);
 $wpSofaPlayer['subtitle'] = get_post_meta($wpSofaPlayer['episode']->ID, '_dipo_subtitle', true);
 $wpSofaPlayer['summary'] = get_post_meta($wpSofaPlayer['episode']->ID, '_dipo_summary', true);
 $wpSofaPlayer['image'] = get_post_meta($wpSofaPlayer['episode']->ID, '_dipo_image', true);
