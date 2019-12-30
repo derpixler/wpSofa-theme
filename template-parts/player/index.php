@@ -50,6 +50,6 @@ $wpSofaPlayer['mediafiles'] = [
 		<?php get_template_part($wpSofaPlayer['themePartName'] . 'cover'); ?>
 		<?php get_template_part($wpSofaPlayer['themePartName'] . 'player'); ?>
 	</div>
-	<?php /*get_template_part($wpSofaPlayer['themePartName'] . 'content'); */?>
+	<?php get_template_part($wpSofaPlayer['themePartName'] . 'content'); ?>
 	<?php get_template_part($wpSofaPlayer['themePartName'] . 'userInterAction'); ?>
 </section>

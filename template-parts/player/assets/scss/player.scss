@@ -179,13 +179,19 @@
 		padding-left: 80px;
 	}
 
-	[class^="icon-"], [class*=" icon-"] {
-		font-size: 14px;
-		transition: all 1ms ease;
+	a[class^="icon-"], a[class*=" icon-"]{
+		color:#fff;
+		text-decoration: none;
 
 		&:hover{
 			cursor: pointer;
+			color: $blue-Light;
 		}
+	}
+
+	[class^="icon-"], [class*=" icon-"] {
+		font-size: 14px;
+		transition: all 1ms ease;
 
 		&:before {
 			font-size: 20px;
@@ -238,6 +244,10 @@
 	.podcastPlayer {
 		width: 420px;
 		margin: 50px auto;
+
+		.episode{
+			display: none;
+		}
 	}
 }
 

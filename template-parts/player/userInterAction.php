@@ -16,15 +16,15 @@ if (empty($wpSofaPlayer)) {
 
 <div class="userInterActions">
 	<div>
-		<span class="icon-cassette"><?=!empty($wpSofaPlayer['hits']) ? $wpSofaPlayer['hits'] : 0?></span>
+		<span class="icon-cassette tooltip"><?=!empty($wpSofaPlayer['hits']) ? $wpSofaPlayer['hits'] : 0?></span>
 		<span class="icon-star-regular"><?=!empty($wpSofaPlayer['likes']) ? $wpSofaPlayer['likes'] : 0?></span>
 	</div>
 	<div>
-		<span class="icon-itunes"></span>
-		<span class="icon-spotify"></span>
-		<span class="icon-youtube"></span>
-		<span class="icon-twitch"></span>
-		<span class="icon-twitter"></span>
+		<a class="icon-itunes" href="https://itunes.apple.com/de/podcast/wp-sofa/id1090434579?mt=2" target="_blank"></a>
+		<a class="icon-spotify" href="https://open.spotify.com/show/5deyJkxMw1cAMKGxnrx5wO" target="_blank"></a>
+		<a class="icon-youtube" href="https://www.youtube.com/channel/UCy_5ynkyKoIXkd4l2nskJUA/featured" target="_blank"></a>
+		<a class="icon-twitch" href="https://www.twitch.tv/wp_sofa" target="_blank"></a>
+		<a class="icon-twitter" href="https://twitter.com/wp_sofa" target="_blank"></a>
 	</div>
 </div>
 
