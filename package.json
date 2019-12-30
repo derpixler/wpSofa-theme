@@ -6,12 +6,13 @@
   "description": "Handle dynamic imports, process sass, bundle js",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack --mode development"
+    "build:webpack-dev": "npx webpack",
+    "build:webpack": "webpack --mode=production"
   },
   "browserslist": [
-    "last 1 version",
-    "> 1%",
-    "IE 10"
+    "> 5%",
+    "IE 10",
+    "Firefox > 50"
   ],
   "dependencies": {},
   "devDependencies": {

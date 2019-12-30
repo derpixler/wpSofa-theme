@@ -9,27 +9,59 @@
 	font-display: block;
 }
 
-@mixin icon {
-	/* use !important to prevent issues with browser extensions that change fonts */
-	font-family: 'wpsofa-font' !important;
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
+// For adding font icons to elements using CSS pseudo-elements (based on: http://jaydenseric.com/blog/fun-with-sass-and-font-icons)
+// ===============================================================================================================================
+/**
+    Requirements:
+    * $default-icon-font (must be declared before @import "mixins/font-icon")
+    * $icon must be a map ()
+    e.g.
+    $icons: (
+      arrow-slim-left: "\e823",
+      arrow-slim-right: "\e811
+    }
+    Usage:
+    @include icon( pseudo-element position [after, before, both], icon-name, supportive-icon-styles [false, true] );
+    Example:
+    .icon-email{
+       @include icon( before, email); OR @include icon( before, email, true);
+    }
+    Customize Icons Example:
+    .icon-email{
+       @include icon( before, email){
+          font-size: 32px;
+          color: #ff0000;
+       }
+    }
+**/
 
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	font-size: 26px;
-	position: relative;
-	top: 4px;
+@mixin icon($position: before, $icon: false, $styles: false) {
+    @if $position == both {
+        $position: 'before, &:after';
+    }
+    // Either a :before or :after pseudo-element, or both, defaulting to :before
+    &:#{$position} {
+        @if $icon {
+            // A particular icon has been specified
+            content: $icon;
+        }
+        @if $styles {
+            // Supportive icon styles required
+            font-family: $default-icon-font;
+            speak: none;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            /* Better Font Rendering =========== */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        // Include any extra rules supplied for the pseudo-element
+        @content;
+    }
 }
-
 
 .icon-cassette:before {
 	@include icon;

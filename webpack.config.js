@@ -5,8 +5,26 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const glob = require("glob");
 const AssetsPlugin = require('assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const log = require('signale');
 
 module.exports = async (env, argv) => {
+    const mode = argv.mode || 'development';
+    let devToolMode = 'hidden-source-map';
+    let host = 'https://wp-sofa.de/';
+
+    if (mode === 'development') {
+        host = 'http://wpsofa.podcast/';
+        devToolMode = 'source-map';
+    }
+
+
+    const logOutput = `
+        mode: ${mode}
+        devtool: ${devToolMode},
+        host: ${host}`;
+
+    log.info(logOutput);
+
     const entries = (moduleBase, webpackImports) => {
         var entries = {
             coreBundle: glob.sync('./assets/js/**/*.js')
@@ -27,7 +45,8 @@ module.exports = async (env, argv) => {
     };
 
     const config = {
-        devtool: 'source-map',
+        mode:         mode,
+        devtool:      devToolMode,
         entry: entries('template-parts', 'webpack.imports.js'),
         output: {
             path: path.resolve(__dirname, 'assets/dist'),
@@ -41,12 +60,15 @@ module.exports = async (env, argv) => {
                     arrayPath.push(pathAsArray[i]);
                 }
 
-                return env.HOST + arrayPath.reverse().join("\\") + "/assets/dist/";
+                return host + arrayPath.reverse().join("\\") + "/assets/dist/";
             }
         },
         optimization: {
             minimize: true,
             minimizer: [new TerserPlugin()],
+        },
+        watchOptions: {
+            ignored: /node_modules/
         },
         module: {
             rules: [
