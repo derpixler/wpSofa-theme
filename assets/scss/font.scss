@@ -9,119 +9,104 @@
 	font-display: block;
 }
 
-// For adding font icons to elements using CSS pseudo-elements (based on: http://jaydenseric.com/blog/fun-with-sass-and-font-icons)
-// ===============================================================================================================================
-/**
-    Requirements:
-    * $default-icon-font (must be declared before @import "mixins/font-icon")
-    * $icon must be a map ()
-    e.g.
-    $icons: (
-      arrow-slim-left: "\e823",
-      arrow-slim-right: "\e811
-    }
-    Usage:
-    @include icon( pseudo-element position [after, before, both], icon-name, supportive-icon-styles [false, true] );
-    Example:
-    .icon-email{
-       @include icon( before, email); OR @include icon( before, email, true);
-    }
-    Customize Icons Example:
-    .icon-email{
-       @include icon( before, email){
-          font-size: 32px;
-          color: #ff0000;
-       }
-    }
-**/
 
-@mixin icon($position: before, $icon: false, $styles: false) {
-    @if $position == both {
-        $position: 'before, &:after';
-    }
-    // Either a :before or :after pseudo-element, or both, defaulting to :before
-    &:#{$position} {
-        @if $icon {
-            // A particular icon has been specified
-            content: $icon;
-        }
-        @if $styles {
-            // Supportive icon styles required
-            font-family: $default-icon-font;
-            speak: none;
-            font-style: normal;
-            font-weight: normal;
-            font-variant: normal;
-            text-transform: none;
-            line-height: 1;
-            /* Better Font Rendering =========== */
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        // Include any extra rules supplied for the pseudo-element
-        @content;
-    }
+$icons: (
+	cassette: "\e904",
+	star-solid:"\e907",
+	star-regular: "\e908",
+	twitch: "\e900",
+	twitter: "\e901",
+	youtube: "\e902",
+	download: "\e903",
+	spotify:"\e905",
+	itunes: "\e906",
+	watch: "\e909",
+	tacho4: "\e90a",
+	tacho3: "\e90c",
+	tacho2: "\e90b",
+	tacho1: "\e90d",
+	tacho0: "\e90e",
+);
+
+@mixin icon($position: before, $icon: false, $styles: true) {
+	@if $position == both {
+		$position: "before, &:after";
+	}
+	// Either a :before or :after pseudo-element, or both, defaulting to :before
+	&:#{$position} {
+		@if $icon {
+			// A particular icon has been specified
+			content: "#{map-get($icons, $icon)}";
+		}
+		@if $styles {
+
+			font-family: 'wpsofa-font' !important;
+			speak: none;
+			font-style: normal;
+			font-weight: normal;
+			font-variant: normal;
+			text-transform: none;
+			line-height: 1;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			font-size: 26px;
+			position: relative;
+			top: 4px;
+		}
+		// Include any extra rules supplied for the pseudo-element
+		@content;
+	}
 }
 
-.icon-cassette:before {
-	@include icon;
-	content: "\e904";
+.icon-cassette {
+	@include icon(before, cassette){
+		top: 4px;
+	};
 }
-.icon-star-solid:before {
-	@include icon;
-	content: "\e907";
+.icon-star-solid{
+	@include icon(before, star-solid);
 }
-.icon-star-regular:before {
-	@include icon;
-	content: "\e908";
+.icon-star-regular{
+	@include icon(before, star-regular);
 }
 
-.icon-twitch:before {
-	@include icon;
-	content: "\e900";
+.icon-twitch{
+	@include icon(before, twitch);
 }
-.icon-twitter:before {
-	@include icon;
-	content: "\e901";
+.icon-twitter{
+	@include icon(before, twitter);
 }
-.icon-youtube:before {
-	@include icon;
-	content: "\e902";
+.icon-youtube{
+	@include icon(before, youtube);
 }
-.icon-download:before {
-	@include icon;
-	content: "\e903";
+.icon-download{
+	@include icon(before, download);
 }
-.icon-spotify:before {
-	@include icon;
-	content: "\e905";
+.icon-spotify{
+	@include icon(before, spotify);
 }
-.icon-itunes:before {
-	@include icon;
-	content: "\e906";
+.icon-itunes{
+	@include icon(before, itunes);
 }
-.icon-watch-light:before {
-	@include icon;
-	content: "\e909";
+.icon-watch-light{
+	@include icon(before, watch);
 }
-.icon-progress[data-progress="85"]:before {
-	@include icon;
-	content: "\e90a";
+.icon-progress[data-progress="85"]{
+	@include icon(before, tacho4);
 }
-.icon-progress[data-progress="70"]:before {
-	@include icon;
-	content: "\e90c";
+.icon-progress[data-progress="70"]{
+	@include icon(before, tacho3);
 }
-.icon-progress[data-progress="45"]:before {
-	@include icon;
-	content: "\e90b";
+.icon-progress[data-progress="45"]{
+	@include icon(before, tacho2);
 }
-.icon-progress[data-progress="15"]:before {
-	@include icon;
-	content: "\e90d";
+.icon-progress[data-progress="15"]{
+	@include icon(before, tacho1);
 }
-.icon-progress[data-progress="0"]:before {
-	@include icon;
-	content: "\e90e";
+.icon-progress[data-progress="0"]{
+	@include icon(before, tacho0);
 }
 

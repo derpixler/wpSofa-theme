@@ -14,7 +14,7 @@ function wpsofa_enqueue_assets() {
 		$assetFileHash   = explode('.', $assetFile)[2];
 		$assetFileHandle = explode('.', $assetFile)[0];
 
-		wp_enqueue_script('js-webpack-' . $assetFileHandle, get_stylesheet_directory_uri() . $assetsPath . $assetFile, NULL, $assetFileHash, false);
+		wp_enqueue_script('js-webpack-' . $assetFileHandle, get_stylesheet_directory_uri() . $assetsPath . $assetFile, NULL, $assetFileHash, true);
 
 		if($i === 0){
 			wp_add_inline_script('js-webpack-' . $assetFileHandle, '

@@ -16,7 +16,7 @@ if (empty($wpSofaPlayer)) {
 
 <div class="userInterActions">
 	<div>
-		<span class="icon-cassette tooltip"><?=!empty($wpSofaPlayer['hits']) ? $wpSofaPlayer['hits'] : 0?></span>
+		<span class="icon-cassette"><?=!empty($wpSofaPlayer['hits']) ? $wpSofaPlayer['hits'] : 0?></span>
 		<span class="icon-star-regular"><?=!empty($wpSofaPlayer['likes']) ? $wpSofaPlayer['likes'] : 0?></span>
 	</div>
 	<div>
