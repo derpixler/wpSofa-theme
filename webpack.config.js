@@ -11,7 +11,7 @@ module.exports = async (env, argv) => {
     const mode = argv.mode || 'development';
     let devToolMode = 'hidden-source-map';
     let host = 'https://wp-sofa.de/';
-    let StyleInjectMode = 'insert';
+    let StyleInjectMode = 'singletonStyleTag';
 
     if (mode === 'development') {
         host = 'http://wpsofa.podcast/';
@@ -63,6 +63,9 @@ module.exports = async (env, argv) => {
                     arrayPath.push(pathAsArray[i]);
                 }
 
+
+                console.log(arrayPath);
+
                 return host + arrayPath.reverse().join("\\") + "/assets/dist/";
             }
         },
@@ -111,7 +114,8 @@ module.exports = async (env, argv) => {
                         {
                             loader: 'style-loader',
                             options: {
-                                injectType: StyleInjectMode
+                                //injectType: StyleInjectMode
+                                injectType: 'singletonStyleTag'
                             }
                         },
                         'css-loader',
