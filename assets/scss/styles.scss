@@ -9,6 +9,10 @@ body:not(.singular) main > article:first-of-type {
 	}
 }
 
+.entry-header-inner{
+	.entry-title{display: none}
+}
+
 .tooltip{
 	position: relative;
 
@@ -50,17 +54,8 @@ body:not(.singular) main > article:first-of-type {
 }
 
 @media (min-width: 700px) {
-	.tooltip {
-		display: inline-block;
-		position: relative;
 
-		&:before {
-			position: inherit;
-			padding: 1px 6px;
-			font-weight: normal;
-			font-size: 12px;
-			top: auto;
-			right: auto;
-		}
+	.entry-header-inner{
+		.entry-title{display: initial}
 	}
 }

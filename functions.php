@@ -7,18 +7,21 @@ function wpsofa_enqueue_assets() {
 	wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
 	wp_enqueue_style('child-theme-css', get_stylesheet_directory_uri() . '/style.css', array('parent-style'));
 
-	$assetsPath = '/assets/dist/';
+	$mode = home_url() === 'http://wpsofa.podcast' ? 'development' : 'production';
+	$assetsPath = '/assets/dist/' . $mode . '/';
 
 	foreach(glob(get_stylesheet_directory() . $assetsPath . '*.bundle.*.js') as $i => $assetFile) {
 		$assetFile       = basename($assetFile);
-		$assetFileHash   = explode('.', $assetFile)[2];
 		$assetFileHandle = explode('.', $assetFile)[0];
 
 		if($i === 0){
 			$assetsHandles = 'js-webpack-' . $assetFileHandle;
 		}
 
-		wp_enqueue_script('js-webpack-' . $assetFileHandle, get_stylesheet_directory_uri() . $assetsPath . $assetFile, ($i > 0 ? $assetsHandles : null), $assetFileHash, true);
+		$file = $assetsPath . $assetFile;
+		$version = filemtime(get_stylesheet_directory() . $file);
+
+		wp_enqueue_script('js-webpack-' . $assetFileHandle, get_stylesheet_directory_uri() . $file, ($i > 0 ? $assetsHandles : null), $version, false);
 
 		if($i === 0){
 			wp_add_inline_script('js-webpack-' . $assetFileHandle, '

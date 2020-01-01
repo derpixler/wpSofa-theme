@@ -8,6 +8,8 @@
 
 /*! ./scss/player.scss */
 
+/*! ./scss/player-lazy.scss */
+
 /*! import() | player-js */
 
 /*! ./js/likeEpisode.js */

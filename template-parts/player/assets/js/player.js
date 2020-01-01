@@ -90,8 +90,6 @@ class mediaPlayer {
 						});
 
 						self.players.push(mediaPlayerObject);
-
-						console.log(self);
 					}
 
 				} );

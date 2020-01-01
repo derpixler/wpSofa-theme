@@ -20,7 +20,6 @@ $medium = $coverScrset['podcast-cover-medium'];
 ?>
 
 <picture class="cover">
-	<source media="(max-width: 1024px)" data-srcset="<?=$small?>" srcset="<?=$small?>, <?=$small?> 2x">
-	<source media="(max-width: 665px)" data-srcset="<?=$medium?>" srcset="<?=$medium?>, <?=$medium?> 2x">
-	<img data-src="<?=$medium?>" src="<?=$medium?>" height="auto" width="400px">
+	<source media="(max-width: 375px)" data-srcset="<?=$small?>" srcset="<?=$small?>, <?=$small?> 2x">
+	<img data-src="<?=$small?>" src="<?=$small?>" height="auto" width="400px">
 </picture>

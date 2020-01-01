@@ -11,7 +11,7 @@ module.exports = async (env, argv) => {
     const mode = argv.mode || 'development';
     let devToolMode = 'hidden-source-map';
     let host = 'https://wp-sofa.de/';
-    let StyleInjectMode = 'singletonStyleTag';
+    let StyleInjectMode = 'styleTag';
 
     if (mode === 'development') {
         host = 'http://wpsofa.podcast/';
@@ -52,7 +52,7 @@ module.exports = async (env, argv) => {
         devtool:      devToolMode,
         entry: entries('template-parts', 'webpack.imports.js'),
         output: {
-            path: path.resolve(__dirname, 'assets/dist'),
+            path: path.resolve(__dirname, 'assets/dist/' + mode),
             filename: '[name].bundle.[chunkhash].js',
             chunkFilename: '[name].chunk.js',
             publicPath: () => {
@@ -63,7 +63,7 @@ module.exports = async (env, argv) => {
                     arrayPath.push(pathAsArray[i]);
                 }
 
-                return host + arrayPath.reverse().join("\/") + "/assets/dist/";
+                return host + arrayPath.reverse().join("\/") + "/assets/dist/" + mode + '/';
             }
         },
         optimization: {
@@ -130,7 +130,7 @@ module.exports = async (env, argv) => {
                 processOutput: function (assets) {
                     return 'window.staticMap = ' + JSON.stringify(assets)
                 },
-                filename: 'assets/dist/assets.json'
+                filename: 'assets/dist/' + mode + '/assets.json'
             })
         ]
     };
