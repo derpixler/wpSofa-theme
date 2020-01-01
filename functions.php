@@ -122,7 +122,9 @@ function like_episode(){
  * @param WP_Query $query
  */
 add_action( 'pre_get_posts', function (WP_Query $query){
-	if(!is_admin() && !is_page() && !empty($query->query['post_type']) && $query->query['post_type'] !== 'nav_menu_item') {
-		$query->set('post_type', array('dipo_podcast'));
+	$queriedPostType = !empty($query->query['post_type']) ? $query->query['post_type'] : 'dipo_podcast';
+
+	if(!is_admin() && !is_page()) {
+		$query->set('post_type', $queriedPostType);
 	}
 });
