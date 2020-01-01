@@ -69,7 +69,7 @@ module.exports = async (env, argv) => {
         optimization: {
             minimize: true,
             minimizer: [new TerserPlugin()],
-	          /*runtimeChunk: 'single',
+	         /* runtimeChunk: 'single',
 	          splitChunks: {
 		          chunks            : 'all',
 		          maxInitialRequests: Infinity,

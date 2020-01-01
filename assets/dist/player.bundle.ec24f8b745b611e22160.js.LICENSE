@@ -1,0 +1,15 @@
+/*!*********************************************************!*\
+  !*** ./template-parts/player/assets/webpack.imports.js ***!
+  \*********************************************************/
+
+/*! no static exports found */
+
+/*! import() | player-scss */
+
+/*! ./scss/player.scss */
+
+/*! import() | player-js */
+
+/*! ./js/likeEpisode.js */
+
+/*! ./js/player.js */
