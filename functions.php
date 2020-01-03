@@ -29,7 +29,8 @@ function wpsofa_enqueue_assets() {
 				stylesheet_directory_uri: "' . get_stylesheet_directory_uri() . '",
 				stylesheet_directory: "' . get_stylesheet_directory() . '",
 				template_parts_uri: "template-parts",
-				ajax_url: "' . admin_url( 'admin-ajax.php' ) . '"
+				ajax_url: "' . admin_url( 'admin-ajax.php' ) . '",
+				rest_url: "' . home_url( 'wp-json/' ) . '"
 			};', false);
 		}
 	}

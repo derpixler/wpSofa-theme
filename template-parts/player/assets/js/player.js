@@ -22,7 +22,7 @@ class mediaPlayer {
 			}
 		};
 
-		applyfilters.doFilter( 'mediaPlayerOptions', options ).then((helloStr) => {
+		applyfilters.doFilter( 'mediaPlayerOptions', options ).then(() => {
 			return options;
 		});
 
@@ -37,6 +37,10 @@ class mediaPlayer {
 		if ( this.players.length > 0 ) {
 			this.addEvents();
 		}
+
+		applyfilters.doFilter( 'mediaPlayerCollection', this.players ).then(() => {
+			return options;
+		});
 	}
 
 	/**
@@ -85,7 +89,7 @@ class mediaPlayer {
 								hash        : hash( playerSources )
 						};
 
-						applyfilters.doFilter( 'mediaPlayerObject', mediaPlayerObject ).then((helloStr) => {
+						applyfilters.doFilter( 'mediaPlayerObject', mediaPlayerObject ).then(() => {
 							return mediaPlayerObject;
 						});
 
