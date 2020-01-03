@@ -252,7 +252,7 @@
 		&:hover{
 			cursor: help;
 		}
-		 > span {
+		 > .tooltipContent {
 			 left: 18%;
 			 font-size: 14px;
 			 &:before, &:after {

@@ -24,7 +24,7 @@ let fetchFeedpressHits = ( mediaPlayerCollection ) => {
 
 					if(hits != {}){
 						mediaPlayerCollection.forEach(mediaPlayer => {
-							let hitsElem = mediaPlayer.node.parentNode.querySelector('.icon-cassette');
+							let hitsElem = mediaPlayer.node.parentNode.querySelector('.icon-cassette .hitsCount');
 							if(hitsElem.innerText){
 								hitsElem.innerText = hits[mediaPlayer.postId];
 							}

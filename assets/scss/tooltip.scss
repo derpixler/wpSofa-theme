@@ -2,7 +2,7 @@
 @import "./font";
 
 .tooltip {
-	> span {
+	> .tooltipContent {
 		display: none;
 		border: 1px solid $blue-Dark;
 		background: $black-Light;
@@ -52,7 +52,7 @@
 		position: initial;
 		padding-bottom: 8px;
 
-		> span {
+		> .tooltipContent {
 			display: block;
 		}
 
@@ -87,7 +87,7 @@
 		display: inline-block;
 		position: relative;
 
-		> span {
+		> .tooltipContent {
 			padding: 15px;
 			box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
 			font-weight: normal;
@@ -102,7 +102,7 @@
 			position: relative;
 			padding-bottom: 0;
 
-			> span {
+			> .tooltipContent {
 				width: auto;
 				left: -30%;
 				z-index: 21;
