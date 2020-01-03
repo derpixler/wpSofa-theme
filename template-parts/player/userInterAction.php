@@ -12,11 +12,16 @@ global $wpSofaPlayer;
 if (empty($wpSofaPlayer)) {
 	return;
 }
+
+$hits = !empty($wpSofaPlayer['hits']) ? $wpSofaPlayer['hits'] : 0;
 ?>
 
 <div class="userInterActions">
 	<div>
-		<span class="icon-cassette"><?=!empty($wpSofaPlayer['hits']) ? $wpSofaPlayer['hits'] : 0?></span>
+		<span class="icon-cassette tooltip">
+			<?=$hits?>
+			<span>Du bist einer von <?=$hits?> Höhren. <b>Danke!</b><br />Gib doch dieser Folge noch einen Stern.</span>
+		</span>
 		<span class="icon-star-regular"><?=!empty($wpSofaPlayer['likes']) ? $wpSofaPlayer['likes'] : 0?></span>
 	</div>
 	<div>

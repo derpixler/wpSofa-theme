@@ -157,6 +157,7 @@
 	}
 }
 
+.entry-header .userInterActions,
 .userInterActions {
 	display: flex;
 	justify-content: space-between;
@@ -201,6 +202,7 @@
 
 	[class^="icon-star-"]{
 		&:hover{
+			cursor: pointer;
 			color: $golden;
 		}
 
@@ -211,10 +213,6 @@
 
 	.icon-star-solid, .icon-star-solid:before {
 		color: $golden;
-	}
-
-	.icon-cassette:hover{
-		cursor: default;
 	}
 }
 

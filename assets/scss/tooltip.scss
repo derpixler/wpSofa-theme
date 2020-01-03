@@ -1,0 +1,119 @@
+@import "./colors";
+@import "./font";
+
+.tooltip {
+	> span {
+		display: none;
+		border: 1px solid $blue-Dark;
+		background: $black-Light;
+		width: 100%;
+		margin-top: 15px;
+		padding: 15px 15px 50px 15px;
+		font-size: 14px;
+		color: #fff;
+		position: relative;
+		white-space: nowrap;
+		transition: all .2ms ease;
+
+		li {
+			list-style: none;
+		}
+
+		p {
+			margin: 10px 0;
+		}
+
+		&:before, &:after {
+			content: '';
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 0 10px 12px 10px;
+			border-color: transparent transparent  $blue-Dark  transparent;
+			position: absolute;
+			top: -12px;
+			right: 2px;
+		}
+
+		&:after {
+			border-width: 0 9px 11px 9px;
+			border-color: transparent transparent $black-Light transparent;
+			top: -10px;
+			right: 3px;
+		}
+	}
+
+	&:hover {
+		position: initial;
+		padding-bottom: 8px;
+
+		> span {
+			display: block;
+		}
+
+		+ .closeBtn {
+			display: block;
+			cursor: pointer;
+			margin-top: 15px;
+			padding: 10px 0;
+			text-align: center;
+			border-top: 1px solid $black;
+			position: absolute;
+			z-index: 10;
+			bottom: 10px;
+			left: 15px;
+			width: 90%;
+			@include icon(before, 'download', true) {
+				color: $black;
+				font-size: 12px;
+				line-height: 0;
+			}
+		;
+		}
+	}
+}
+
+.closeBtn {
+	display: none;
+}
+
+@media screen and (min-width: 1024px) {
+	.tooltip {
+		display: inline-block;
+		position: relative;
+
+		> span {
+			padding: 15px;
+			position: absolute;
+			box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+			font-weight: normal;
+			font-size: 16px;
+			line-height: 1;
+			border-radius: 10px;
+
+			&:before, &:after {
+				right: 37%;
+			}
+
+			&:after {
+				right: 37.3%;
+			}
+		}
+
+		&:hover {
+			position: relative;
+			padding-bottom: 0;
+
+			> span {
+				width: auto;
+				left: -30%;
+				z-index: 21;
+				margin-top: 10px;
+			}
+
+			+ .closeBtn {
+				display: none;
+			}
+		}
+	}
+}

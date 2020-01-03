@@ -11,4 +11,9 @@ document.addEventListener( 'DOMContentLoaded', function( event ) {
 		} );
 	} );
 
+	let tooltip = document.querySelectorAll( ".tooltip" );
+	window.observeElements( tooltip, () => {
+		import(/* webpackChunkName: "tooltip-scss" */'../../../assets/scss/tooltip.scss');
+	});
+
 });
