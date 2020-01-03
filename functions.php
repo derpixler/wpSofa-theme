@@ -9,19 +9,16 @@ function wpsofa_enqueue_assets() {
 
 	$mode = home_url() === 'http://wpsofa.podcast' ? 'development' : 'production';
 	$assetsPath = '/assets/dist/' . $mode . '/';
+	$coreBundle = 'js-webpack-coreBundle';
 
 	foreach(glob(get_stylesheet_directory() . $assetsPath . '*.bundle.*.js') as $i => $assetFile) {
 		$assetFile       = basename($assetFile);
 		$assetFileHandle = explode('.', $assetFile)[0];
 
-		if($i === 0){
-			$assetsHandles = 'js-webpack-' . $assetFileHandle;
-		}
-
 		$file = $assetsPath . $assetFile;
 		$version = filemtime(get_stylesheet_directory() . $file);
 
-		wp_enqueue_script('js-webpack-' . $assetFileHandle, get_stylesheet_directory_uri() . $file, ($i > 0 ? $assetsHandles : null), $version, false);
+		wp_enqueue_script('js-webpack-' . $assetFileHandle, get_stylesheet_directory_uri() . $file, null, $version, false);
 
 		if($i === 0){
 			wp_add_inline_script('js-webpack-' . $assetFileHandle, '
@@ -36,6 +33,11 @@ function wpsofa_enqueue_assets() {
 }
 
 add_action('wp_enqueue_scripts', 'wpsofa_enqueue_assets');
+
+add_action('wp_head', function(){
+	require_once dirname(__FILE__) . '/collectAllStyles.php';
+	new \WebDevMedia\wpsofa\collectAllStyles();
+}, 5);
 
 /**
  * Google Font einbinden

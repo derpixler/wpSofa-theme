@@ -41,14 +41,27 @@ window.observeElements = function(elements, cb, options) {
       ratio: _options.ratio,
     } );
 
+    const loopNodeElements = ( NodeElements ) => {
+      if ( NodeList.prototype.isPrototypeOf( elements ) ) {
+        elements.forEach( function( elem ) {
+          io.observe( elem );
+        } );
+      } else {
+        io.observe( elements );
+      }
+    };
+
     if ( NodeList.prototype.isPrototypeOf( elements ) ) {
+      loopNodeElements(elements);
+    } else if (Array.prototype.isPrototypeOf( elements ) ){
       elements.forEach( function( elem ) {
-        io.observe( elem );
+          io.observe( elem );
       } );
     } else {
       io.observe( elements );
     }
+
   } else {
-    console.warn( 'Call of fireOnVisible without any Node or NodeList will be ignored.' );
+    console.warn( 'Call of observeElements without any Node or NodeList will be ignored.' );
   }
 };
