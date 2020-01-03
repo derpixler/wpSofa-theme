@@ -6,7 +6,7 @@ let likeEpisode = ( mediaPlayerObject ) => {
 
 	if ( mediaPlayerObject ) {
 		let liked = localstorageHandle.get( mediaPlayerObject.hash + storageKey );
-		let likeBtn = mediaPlayerObject.node.parentNode.querySelector( '[class^="icon-star-"]' );
+		let likeBtn = mediaPlayerObject.node.parentNode.querySelector( '.episodeLike' );
 
 		if ( liked === null ) {
 

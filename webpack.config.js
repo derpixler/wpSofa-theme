@@ -112,7 +112,7 @@ module.exports = async (env, argv) => {
                             loader: 'style-loader',
                             options: {
                                 //injectType: StyleInjectMode
-                                injectType: 'singletonStyleTag'
+                                injectType: 'styleTag'
                             }
                         },
                         'css-loader',

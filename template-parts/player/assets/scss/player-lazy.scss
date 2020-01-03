@@ -214,6 +214,14 @@
 	.icon-star-solid, .icon-star-solid:before {
 		color: $golden;
 	}
+
+	.icon-cassette.tooltip {
+		> span{
+			&:before, &:after {
+				left: 6%;
+			}
+		}
+	}
 }
 
 .episode{
@@ -234,6 +242,22 @@
 		margin-top: 0;
 		a {
 			color: $blue-Light;
+		}
+	}
+}
+
+
+@media screen and (min-width: 1024px) {
+	.entry-header .userInterActions .icon-cassette.tooltip {
+		&:hover{
+			cursor: help;
+		}
+		 > span {
+			 left: 18%;
+			 font-size: 14px;
+			 &:before, &:after {
+				 left: 50%;
+			 }
 		}
 	}
 }
