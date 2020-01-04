@@ -14,7 +14,7 @@ window.observeElements = function(elements, cb, options) {
     loop : options.loop || false,
     ratio: options.ratio || 0
   };
-
+  
   if ( elements ) {
     const io = new IntersectionObserver( function( entries ) {
       for ( const i in entries ) {

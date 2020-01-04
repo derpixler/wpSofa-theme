@@ -171,7 +171,7 @@ function write_likes_by_post_id( \WP_REST_Request $request ): string {
 		#update_post_meta($_POST['post_id'], $metaKey, $newVal);
 	}
 
-	return $newVal;
+	return json_encode($newVal);
 }
 
 /**

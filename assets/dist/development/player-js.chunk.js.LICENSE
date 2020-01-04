@@ -6,14 +6,14 @@
 
 /*! applyfilters */
 
+/*! object-hash */
+
+/*! @web-dev-media/localstorage */
+
 /*!********************************************************!*\
   !*** ./template-parts/player/assets/js/likeEpisode.js ***!
   \********************************************************/
 
-/*! @web-dev-media/localstorage */
-
 /*!***************************************************!*\
   !*** ./template-parts/player/assets/js/player.js ***!
   \***************************************************/
-
-/*! object-hash */
