@@ -14,21 +14,18 @@ window.observeElements = function(elements, cb, options) {
     loop : options.loop || false,
     ratio: options.ratio || 0
   };
-  
+
   if ( elements ) {
     const io = new IntersectionObserver( function( entries ) {
       for ( const i in entries ) {
         if ( entries ) {
           const entry = entries[ i ];
           const elem = entries[ i ].target;
-
           if ( typeof entry.isVisible === 'undefined' ) {
             entry.isVisible = true;
           }
 
-          if ( (
-            entry.isIntersecting && entry.isVisible
-          ) || entry.intersectionRatio > _options.ratio ) {
+          if ( ( entry.isIntersecting && entry.isVisible) || entry.intersectionRatio > _options.ratio ) {
             cb( elem, entry );
 
             if ( _options.loop === false ) {

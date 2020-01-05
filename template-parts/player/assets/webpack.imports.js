@@ -7,7 +7,7 @@ document.addEventListener( 'DOMContentLoaded', function( event ) {
 		import(/* webpackChunkName: "player-scss" */'./scss/player-lazy.scss');
 		import(/* webpackChunkName: "player-js" */ "./js/fetchFeedpressHits.js").then( controls => {} );
 		import(/* webpackChunkName: "player-js" */ "./js/player.js").then( mediaPlayer => {
-			new mediaPlayer.default();
+				new mediaPlayer.default();
 		} );
 	}, {loop: false} );
 

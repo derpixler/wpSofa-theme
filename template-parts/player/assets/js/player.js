@@ -8,6 +8,10 @@ const hash = require( 'object-hash' );
 
 class mediaPlayer {
 	constructor() {
+		if(window.wpsofa.player !== undefined) {
+			return;
+		}
+
 		let options = {
 			storage_key: 'wpsofa-player-storage',
 			currentPos : 0,
@@ -35,12 +39,15 @@ class mediaPlayer {
 		this.collectPlayers();
 
 		if ( this.players.length > 0 ) {
+			window.wpsofa.player = this.players;
+
 			this.addEvents();
+
+			applyfilters.doFilter( 'mediaPlayerCollection', this.players ).then(() => {
+				return options;
+			});
 		}
 
-		applyfilters.doFilter( 'mediaPlayerCollection', this.players ).then(() => {
-			return options;
-		});
 	}
 
 	/**

@@ -136,19 +136,18 @@ add_action('rest_api_init', function () {
  */
 function get_likes_by_post_ids( \WP_REST_Request $request ): string {
 	$post_ids = $request->get_body_params();
-	$values   = [];
 
-	if (!empty($post_ids['ids'])) {
-		foreach (explode(',', $post_ids['ids']) as $post_id) {
+	if (!empty($post_ids['id'])) {
+		foreach (explode(',', $post_ids['id']) as $post_id) {
 			$hits = get_post_meta($post_id, '_post_like_count', TRUE);
 
 			if (!empty($hits)) {
-				$values[$post_id] = $hits;
+				return $hits;
 			}
 		}
 	}
 
-	return json_encode($values, JSON_FORCE_OBJECT | JSON_HEX_QUOT);
+	return 0;
 }
 
 /**

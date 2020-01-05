@@ -20,7 +20,7 @@ $hits = !empty($wpSofaPlayer['hits']) ? $wpSofaPlayer['hits'] : 0;
 	<div>
 		<span class="icon-cassette tooltip">
 			<span class="hitsCount"><?=$hits?></span>
-			<span class="tooltipContent">Du bist einer von <span class="hitsCount"><?=$hits?></span> Höhren. <b>Danke!</b><br />Gefält dir diese Folge, dann gib ihr doch einen <span class="icon-star-solid"></span></spanclass>
+			<span class="tooltipContent">Du bist einer von <span class="hitsCount"><?=$hits?></span> Höhren. <b>Danke!</b><br />Gefält dir diese Folge, dann gib ihr doch einen <span class="icon-star-solid"></span></span>
 		</span>
 		<span class="icon-star-regular episodeLike"><?=!empty($wpSofaPlayer['likes']) ? $wpSofaPlayer['likes'] : 0?></span>
 	</div>
