@@ -26,6 +26,7 @@ $icons: (
 	tacho2: "\e90b",
 	tacho1: "\e90d",
 	tacho0: "\e90e",
+	google-podcasts: "\e90f",
 );
 
 @mixin icon($position: before, $icon: false, $styles: true) {
@@ -90,6 +91,9 @@ $icons: (
 }
 .icon-itunes{
 	@include icon(before, itunes);
+}
+.icon-google-podcasts{
+	@include icon(before, google-podcasts);
 }
 .icon-watch-light{
 	@include icon(before, watch);

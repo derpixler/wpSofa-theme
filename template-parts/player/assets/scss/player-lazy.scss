@@ -177,7 +177,7 @@
 
 	div:last-child {
 		flex-grow: 2;
-		padding-left: 80px;
+		padding-left: 30px;
 	}
 
 	a[class^="icon-"], a[class*=" icon-"]{
@@ -216,9 +216,22 @@
 	}
 
 	.icon-cassette.tooltip {
-		> span{
+		> .tooltipContent{
 			&:before, &:after {
 				left: 6%;
+			}
+		}
+	}
+
+
+	.icon-download.tooltip {
+		> .tooltipContent{
+			&:before, &:after {
+				right: 3%;
+				left:auto;
+			}
+			&:after {
+				right: 3.5%;
 			}
 		}
 	}
@@ -248,6 +261,7 @@
 
 
 @media screen and (min-width: 1024px) {
+	.entry-header .userInterActions .icon-download.tooltip,
 	.entry-header .userInterActions .icon-cassette.tooltip {
 		&:hover{
 			cursor: help;
@@ -258,6 +272,21 @@
 			 &:before, &:after {
 				 left: 50%;
 			 }
+		}
+	}
+
+
+	.entry-header .userInterActions .icon-download.tooltip{
+		&:hover{
+			cursor: pointer;
+		}
+		> .tooltipContent {
+			a{
+				color: $blue-Light;
+				&:hover{
+					color: $blue;
+				}
+			}
 		}
 	}
 }
