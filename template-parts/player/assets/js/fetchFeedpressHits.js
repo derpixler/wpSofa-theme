@@ -13,12 +13,14 @@ let fetchFeedpressHits = ( mediaPlayerCollection ) => {
 
 		if(hits){
 			mediaPlayerCollection.forEach(mediaPlayer => {
-				let hitsElem = mediaPlayer.node.parentNode.querySelector('.icon-cassette .hitsCount');
+				let hitsElems = mediaPlayer.node.parentNode.querySelectorAll('.hitsCount');
 				mediaPlayer.hits = hits[mediaPlayer.postId];
 
+				hitsElems.forEach(hitsElem => {
 				if(hitsElem.innerText){
 					hitsElem.innerText = hits[mediaPlayer.postId];
 				}
+				});
 			});
 		}
 	};

@@ -167,7 +167,7 @@ function write_likes_by_post_id( \WP_REST_Request $request ): string {
 	if (!empty($post_id['id'])) {
 		$currentVal = get_post_meta($post_id['id'], $metaKey, TRUE);
 		$newVal     = $currentVal > 0 ? $currentVal + 1 : 0;
-		#update_post_meta($_POST['post_id'], $metaKey, $newVal);
+		update_post_meta($post_id['id'], $metaKey, $newVal);
 	}
 
 	return json_encode($newVal);
