@@ -30,19 +30,31 @@ module.exports = async (env, argv) => {
 
     const entries = (moduleBase, webpackImports) => {
         var entries = {
-            coreBundle: glob.sync('./assets/js/**/*.js')
+            aa_coreBundle: glob.sync('./assets/js/**/*.js'),
+            themesPluginsBundle: glob.sync('./**/assets/*.' + webpackImports),
         };
 
-        const webpackFiles = glob.sync('./' + moduleBase + '/**/assets/' + webpackImports);
+        const moduleWebpackFiles = glob.sync('./' + moduleBase + '/**/assets/' + webpackImports);
 
-        if(webpackFiles.length > 0){
-            webpackFiles.map((file) => {
+        if(moduleWebpackFiles.length > 0){
+            moduleWebpackFiles.map((file) => {
                 const pattern = moduleBase+"[\\/](.*?)[\\/]assets[\\/]*.+\\.js$";
                 const entry = file.match(pattern);
 
                 entries[entry[1]] = './' + moduleBase + '/' + entry[1] + '/assets/' + webpackImports;
             });
         }
+
+        const webpackFiles = glob.sync('./**/assets/*.' + webpackImports);
+/*
+        if(webpackFiles.length > 0){
+            webpackFiles.map((file) => {
+                const pattern = "[\\/]assets[\\/](.*?)\\..*?\\.js$";
+                const entry = file.match(pattern);
+
+                entries[entry[1]] = file;
+            });
+        }*/
 
         return entries;
     };
@@ -106,7 +118,7 @@ module.exports = async (env, argv) => {
                     loader: 'url-loader?limit=100000'
                 },
                 {
-                    test: /\.s[c|a]ss$/,
+                    test: /\.scss$/,
                     use: [
                         {
                             loader: 'style-loader',
@@ -119,6 +131,19 @@ module.exports = async (env, argv) => {
                         'postcss-loader',
                         'sass-loader?sourceMap'
                         ]
+                },
+                {
+                    test: /\.css$/,
+                    use: [
+                        {
+                            loader: 'style-loader',
+                            options: {
+                                //injectType: StyleInjectMode
+                                injectType: 'singletonStyleTag'
+                            }
+                        },
+                        'css-loader'
+                    ]
                 }
 
             ]
