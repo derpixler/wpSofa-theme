@@ -30,31 +30,19 @@ module.exports = async (env, argv) => {
 
     const entries = (moduleBase, webpackImports) => {
         var entries = {
-            aa_coreBundle: glob.sync('./assets/js/**/*.js'),
-            themesPluginsBundle: glob.sync('./**/assets/*.' + webpackImports),
+            coreBundle: glob.sync('./assets/js/**/*.js')
         };
 
-        const moduleWebpackFiles = glob.sync('./' + moduleBase + '/**/assets/' + webpackImports);
+        const webpackFiles = glob.sync('./' + moduleBase + '/**/assets/' + webpackImports);
 
-        if(moduleWebpackFiles.length > 0){
-            moduleWebpackFiles.map((file) => {
+        if(webpackFiles.length > 0){
+            webpackFiles.map((file) => {
                 const pattern = moduleBase+"[\\/](.*?)[\\/]assets[\\/]*.+\\.js$";
                 const entry = file.match(pattern);
 
                 entries[entry[1]] = './' + moduleBase + '/' + entry[1] + '/assets/' + webpackImports;
             });
         }
-
-        const webpackFiles = glob.sync('./**/assets/*.' + webpackImports);
-/*
-        if(webpackFiles.length > 0){
-            webpackFiles.map((file) => {
-                const pattern = "[\\/]assets[\\/](.*?)\\..*?\\.js$";
-                const entry = file.match(pattern);
-
-                entries[entry[1]] = file;
-            });
-        }*/
 
         return entries;
     };
@@ -81,25 +69,25 @@ module.exports = async (env, argv) => {
         optimization: {
             minimize: true,
             minimizer: [new TerserPlugin()],
-	         /* runtimeChunk: 'single',
-	          splitChunks: {
-		          chunks            : 'all',
-		          maxInitialRequests: Infinity,
-		          minSize           : 0,
-		          cacheGroups       : {
-			          vendor: {
-				          test: /[\\/]node_modules[\\/]/,
-				          name( module ) {
-					          // get the name. E.g. node_modules/packageName/not/this/part.js
-					          // or node_modules/packageName
-					          const packageName = module.context.match( /[\\/]node_modules[\\/](.*?)([\\/]|$)/ )[ 1 ];
+            /* runtimeChunk: 'single',
+						 splitChunks: {
+							 chunks            : 'all',
+							 maxInitialRequests: Infinity,
+							 minSize           : 0,
+							 cacheGroups       : {
+								 vendor: {
+									 test: /[\\/]node_modules[\\/]/,
+									 name( module ) {
+										 // get the name. E.g. node_modules/packageName/not/this/part.js
+										 // or node_modules/packageName
+										 const packageName = module.context.match( /[\\/]node_modules[\\/](.*?)([\\/]|$)/ )[ 1 ];
 
-					          // npm package names are URL-safe, but some servers don't like @ symbols
-					          return `npm.${packageName.replace( '@', '' )}`;
-				          }
-			          }
-		          }
-	          }*/
+										 // npm package names are URL-safe, but some servers don't like @ symbols
+										 return `npm.${packageName.replace( '@', '' )}`;
+									 }
+								 }
+							 }
+						 }*/
         },
         watchOptions: {
             ignored: /node_modules/
@@ -118,7 +106,7 @@ module.exports = async (env, argv) => {
                     loader: 'url-loader?limit=100000'
                 },
                 {
-                    test: /\.scss$/,
+                    test: /\.s[c|a]ss$/,
                     use: [
                         {
                             loader: 'style-loader',
@@ -130,19 +118,6 @@ module.exports = async (env, argv) => {
                         'css-loader',
                         'postcss-loader',
                         'sass-loader?sourceMap'
-                        ]
-                },
-                {
-                    test: /\.css$/,
-                    use: [
-                        {
-                            loader: 'style-loader',
-                            options: {
-                                //injectType: StyleInjectMode
-                                injectType: 'singletonStyleTag'
-                            }
-                        },
-                        'css-loader'
                     ]
                 }
 
