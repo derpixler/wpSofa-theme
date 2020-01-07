@@ -8,16 +8,15 @@ let fetchFeedpressHits = ( mediaPlayerCollection ) => {
 	const storageKeyBase = 'fetchedHits_';
 
 	const updateHits = function(hits, fromCache) {
-		fromCache = fromCache || false;
 		hits = JSON.parse(JSON.parse(hits));
 
-		if(hits){
+		if(hits !== 0){
 			mediaPlayerCollection.forEach(mediaPlayer => {
 				let hitsElems = mediaPlayer.node.parentNode.querySelectorAll('.hitsCount');
 				mediaPlayer.hits = hits[mediaPlayer.postId];
 
 				hitsElems.forEach(hitsElem => {
-				if(hitsElem.innerText){
+				if(hitsElem.innerText !== undefined){
 					hitsElem.innerText = hits[mediaPlayer.postId];
 				}
 				});
