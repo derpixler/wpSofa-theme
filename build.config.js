@@ -1,4 +1,6 @@
 const config = () => {
+    const tmpFolder = '/tmp/'+ this.themeName;
+
 	return {
 		production : {
 			onStart: {
@@ -8,21 +10,21 @@ const config = () => {
 			},
 			onEnd  : {
 				copy  : [
-					{ source: './assets/dist/'+ this.version + '/', destination: './'+ this.packageBase + '/tmp/assets/dist/' + this.version },
-					{ source: './assets/fonts/', destination: './'+ this.packageBase + '/tmp/assets/fonts' },
-					{ source: './functions.php', destination: './'+ this.packageBase + '/tmp' },
-					{ source: './style.css', destination: './'+ this.packageBase + '/tmp' },
-					{ source: './screenshot.png', destination: './'+ this.packageBase + '/tmp' },
-					{ source: './composer.json', destination: './'+ this.packageBase + '/tmp' },
-					{ source: './'+ this.moduleBase, destination: './'+ this.packageBase + '/tmp/'+ this.moduleBase },
+					{ source: './assets/dist/'+ this.version + '/', destination: './'+ this.packageBase + tmpFolder + '/assets/dist/' + this.version },
+					{ source: './assets/fonts/', destination: './'+ this.packageBase + tmpFolder + '/assets/fonts' },
+					{ source: './functions.php', destination: './'+ this.packageBase + tmpFolder },
+					{ source: './style.css', destination: './'+ this.packageBase + tmpFolder },
+					{ source: './screenshot.png', destination: './'+ this.packageBase + tmpFolder },
+					{ source: './composer.json', destination: './'+ this.packageBase + tmpFolder },
+					{ source: './'+ this.moduleBase, destination: './'+ this.packageBase + tmpFolder + '/'+ this.moduleBase },
 				],
 				mkdir  : [
 					'./'+ this.packageBase + '/packages'
 				],
 				archive: [
 					{
-						source     : './'+ this.packageBase + '/tmp',
-						destination: './'+ this.packageBase + '/packages/'+ this.themeName + '-' + this.version + '.tar.gz',
+						source     : './'+ this.packageBase + '/tmp/',
+						destination: './'+ this.packageBase + '/packages/build-' + this.version + '.tar.gz',
 						format     : 'tar',
 						options    : {
 							gzip       : true,
