@@ -1,14 +1,20 @@
 // webpack v4
 const path = require('path');
+const buildConfig = require('./build.config');
 const WebpackMd5Hash = require('webpack-md5-hash');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const glob = require("glob");
 const AssetsPlugin = require('assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const log = require('signale');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
+const hash = require( 'object-hash' );
 
 module.exports = async (env, argv) => {
     const mode = argv.mode || 'development';
+    const version = hash(Date.now()).substring(0, 12);
+    const moduleBase = 'template-parts';
+    const packageBase = 'build';
+
     let devToolMode = 'hidden-source-map';
     let host = 'https://wp-sofa.de/';
     let StyleInjectMode = 'styleTag';
@@ -24,6 +30,7 @@ module.exports = async (env, argv) => {
         mode: ${mode}
         devtool: ${devToolMode},
         host: ${host},
+        version: ${version},
         StyleInjectMode: ${StyleInjectMode}`;
 
     log.info(logOutput);
@@ -52,7 +59,7 @@ module.exports = async (env, argv) => {
         devtool:      devToolMode,
         entry: entries('template-parts', 'webpack.imports.js'),
         output: {
-            path: path.resolve(__dirname, 'assets/dist/' + mode),
+            path: path.resolve(__dirname, 'assets/dist/' + mode  + "/" + version),
             filename: '[name].bundle.[chunkhash].js',
             chunkFilename: '[name].chunk.js',
             publicPath: () => {
@@ -63,7 +70,7 @@ module.exports = async (env, argv) => {
                     arrayPath.push(pathAsArray[i]);
                 }
 
-                return host + arrayPath.reverse().join("\/") + "/assets/dist/" + mode + '/';
+                return host + arrayPath.reverse().join("\/") + "/assets/dist/" + mode  + "/" + version;
             }
         },
         optimization: {
@@ -124,13 +131,13 @@ module.exports = async (env, argv) => {
             ]
         },
         plugins: [
-            new CleanWebpackPlugin(),
+            new FileManagerPlugin(buildConfig(mode, packageBase, moduleBase, version)),
             new WebpackMd5Hash(),
             new AssetsPlugin({
                 processOutput: function (assets) {
-                    return 'window.staticMap = ' + JSON.stringify(assets)
+                    return version
                 },
-                filename: 'assets/dist/' + mode + '/assets.json'
+                filename: 'assets/dist/' + mode + '/' + version + '/version.txt'
             })
         ]
     };

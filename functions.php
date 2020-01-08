@@ -45,7 +45,7 @@ add_action('wp_enqueue_scripts', 'wpsofa_enqueue_assets');
 
 function load_google_fonts() {
 
-	wp_register_style('googleFonts', 'http://fonts.googleapis.com/css?family=Roboto+Slab:400,700');
+	wp_register_style('googleFonts', 'https://fonts.googleapis.com/css?family=Roboto+Slab:400,700');
 	wp_enqueue_style('googleFonts');
 }
 
@@ -166,7 +166,7 @@ function write_likes_by_post_id( \WP_REST_Request $request ): string {
 
 	if (!empty($post_id['id'])) {
 		$currentVal = get_post_meta($post_id['id'], $metaKey, TRUE);
-		$newVal     = $currentVal > 0 ? $currentVal + 1 : 0;
+		$newVal     = $currentVal > 0 ? $currentVal + 1 : 1;
 		update_post_meta($post_id['id'], $metaKey, $newVal);
 	}
 

@@ -30,6 +30,7 @@
     "cssurl": "^1.3.0",
     "fibers": "^4.0.2",
     "file-loader": "^5.0.2",
+    "filemanager-webpack-plugin": "^2.0.5",
     "fs-extra": "^8.1.0",
     "glob": "^7.1.6",
     "html-webpack-plugin": "^3.2.0",
