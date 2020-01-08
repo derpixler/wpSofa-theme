@@ -8,21 +8,22 @@ function wpsofa_enqueue_assets() {
 	wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
 	wp_enqueue_style('child-theme-css', get_stylesheet_directory_uri() . '/style.css', array('parent-style'));
 
-	$mode       = home_url() === 'http://wpsofa.podcast' ? 'development' : 'production';
-	$assetsPath = '/assets/dist/' . $mode . '/';
+	$assetsPath = '/assets/dist/';
 
-	foreach (glob(get_stylesheet_directory() . $assetsPath . '*.bundle.*.js') as $i => $assetFile) {
-		$assetFile       = basename($assetFile);
+	foreach (glob(get_stylesheet_directory() . $assetsPath . '*/*.bundle.*.js') as $i => $assetFile) {
+
+	    $assetPathInfo   = pathinfo($assetFile);
+	    $assetFile       = basename($assetFile);
+	    $version         = basename($assetPathInfo['dirname']);
 		$assetFileHandle = explode('.', $assetFile)[0];
 
 		if ($i === 0) {
 			$assetsHandles = 'js-webpack-' . $assetFileHandle;
 		}
 
-		$file    = $assetsPath . $assetFile;
-		$version = filemtime(get_stylesheet_directory() . $file);
+		$file    = $assetsPath . $version . '/' . $assetFile;
 
-		wp_enqueue_script('js-webpack-' . $assetFileHandle, get_stylesheet_directory_uri() . $file, ($i > 0 ? $assetsHandles : NULL), $version, FALSE);
+		wp_enqueue_script('js-webpack-' . $assetFileHandle, get_stylesheet_directory_uri() . $file, ($i > 0 ? $assetsHandles : NULL), NULL, FALSE);
 
 		if ($i === 0) {
 			wp_add_inline_script('js-webpack-' . $assetFileHandle, '

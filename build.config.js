@@ -43,7 +43,7 @@ const config = () => {
 		},
 		development: {
 			onStart: {
-				delete: [ './assets/dist/'+ this.mode ]
+				delete: [ './assets/dist/' ]
 			}
 		}} ///
 };

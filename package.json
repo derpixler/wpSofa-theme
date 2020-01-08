@@ -6,8 +6,8 @@
   "description": "Handle dynamic imports, process sass, bundle js",
   "license": "MIT",
   "scripts": {
-    "build:webpack-dev": "npx webpack",
-    "build:webpack": "webpack --mode=production"
+    "build:dev": "npx webpack --mode=development",
+    "build:production": "webpack --mode=production"
   },
   "browserslist": [
     "> 5%",

@@ -3,3 +3,4 @@ node_modules
 .DS_*
 /build/
 /assets/dist/production/
+/assets/dist/
