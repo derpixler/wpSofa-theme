@@ -8,7 +8,7 @@ const config = () => {
 			},
 			onEnd  : {
 				copy  : [
-					{ source: './assets/dist/'+ this.mode, destination: './'+ this.packageBase + '/tmp/assets/dist' },
+					{ source: './assets/dist/'+ this.version + '/', destination: './'+ this.packageBase + '/tmp/assets/dist/' + this.version },
 					{ source: './assets/fonts/', destination: './'+ this.packageBase + '/tmp/assets/fonts' },
 					{ source: './functions.php', destination: './'+ this.packageBase + '/tmp' },
 					{ source: './style.css', destination: './'+ this.packageBase + '/tmp' },
@@ -22,7 +22,7 @@ const config = () => {
 				archive: [
 					{
 						source     : './'+ this.packageBase + '/tmp',
-						destination: './'+ this.packageBase + '/packages/'+ this.packageBase + '-' + this.version + '.tar.gz',
+						destination: './'+ this.packageBase + '/packages/'+ this.themeName + '-' + this.version + '.tar.gz',
 						format     : 'tar',
 						options    : {
 							gzip       : true,
@@ -37,7 +37,7 @@ const config = () => {
 				],
 				delete : [
 					'./'+ this.packageBase + '/tmp',
-					'./assets/dist/'+ this.mode
+					'./assets/dist/' + this.version
 				]
 			}
 		},
@@ -48,8 +48,9 @@ const config = () => {
 		}} ///
 };
 
-module.exports = ( mode, packageBase, moduleBase, version ) => {
+module.exports = ( mode, themeName, packageBase, moduleBase, version ) => {
 	this.mode = mode || null;
+	this.themeName = themeName || null;
 	this.packageBase = packageBase || null;
 	this.moduleBase = moduleBase || null;
 	this.version = version || null;

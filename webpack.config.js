@@ -16,8 +16,10 @@ module.exports = async (env, argv) => {
     const packageBase = 'build';
 
     let devToolMode = 'hidden-source-map';
-    let host = 'https://wp-sofa.de/';
+    //let host = 'https://wp-sofa.de/';
+    let host = 'http://wpsofa.podcast/';
     let StyleInjectMode = 'styleTag';
+    let themeName = '';
 
     if (mode === 'development') {
         host = 'http://wpsofa.podcast/';
@@ -54,6 +56,18 @@ module.exports = async (env, argv) => {
         return entries;
     };
 
+    const publicPath = () => {
+        let pathAsArray = path.resolve(__dirname).split('/').reverse();
+        let arrayPath = [];
+
+        for(i=0;i < 3;i++){
+            arrayPath.push(pathAsArray[i]);
+        }
+        themeName = arrayPath[0];
+
+        return host + arrayPath.reverse().join("\/") + "/assets/dist/" + version + '/';
+    };
+
     const config = {
         mode:         mode,
         devtool:      devToolMode,
@@ -62,16 +76,7 @@ module.exports = async (env, argv) => {
             path: path.resolve(__dirname, 'assets/dist/' + version + '/'),
             filename: '[name].bundle.[chunkhash].js',
             chunkFilename: '[name].chunk.js',
-            publicPath: () => {
-                let pathAsArray = path.resolve(__dirname).split('/').reverse();
-                let arrayPath = [];
-
-                for(i=0;i < 3;i++){
-                    arrayPath.push(pathAsArray[i]);
-                }
-
-                return host + arrayPath.reverse().join("\/") + "/assets/dist/" + version + '/';
-            }
+            publicPath: publicPath()
         },
         optimization: {
             minimize: true,
@@ -131,7 +136,7 @@ module.exports = async (env, argv) => {
             ]
         },
         plugins: [
-            new FileManagerPlugin(buildConfig(mode, packageBase, moduleBase, version)),
+            new FileManagerPlugin(buildConfig(mode, themeName, packageBase, moduleBase, version)),
             new WebpackMd5Hash(),
             new AssetsPlugin({
                 processOutput: function (assets) {
