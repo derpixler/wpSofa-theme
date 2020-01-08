@@ -9,7 +9,8 @@ const config = () => {
         { source: './assets/fonts/', destination: './'+ this.packageBase + tmpFolder + '/assets/fonts' },
         { source: './functions.php', destination: './'+ this.packageBase + tmpFolder },
         { source: './style.css', destination: './'+ this.packageBase + tmpFolder },
-        { source: './screenshot.png', destination: './'+ this.packageBase + tmpFolder }
+        { source: './screenshot.png', destination: './'+ this.packageBase + tmpFolder },
+        { source: './inc/', destination: './'+ this.packageBase + tmpFolder + '/inc' }
     ];
 
     if(moduleFiles.length > 0){
@@ -45,7 +46,7 @@ const config = () => {
 					}
 				],
 				delete : [
-					'./'+ this.packageBase + '/tmp',
+					//'./'+ this.packageBase + '/tmp',
 					'./assets/dist/' + this.version
 				]
 			}
