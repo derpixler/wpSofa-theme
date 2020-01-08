@@ -70,7 +70,7 @@ if ( is_singular() ) {
 		}
 
 		// Default to displaying the post meta.
-		twentytwenty_the_post_meta( get_the_ID(), 'single-top' );
+		wpsofa_the_post_meta( get_the_ID(), 'single-top' );
 		?>
 
 	</div><!-- .entry-header-inner -->
