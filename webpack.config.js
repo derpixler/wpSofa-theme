@@ -8,6 +8,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const log = require('signale');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const hash = require( 'object-hash' );
+const fs = require('fs');
 
 module.exports = async (env, argv) => {
     const mode = argv.mode || 'development';
@@ -16,8 +17,7 @@ module.exports = async (env, argv) => {
     const packageBase = 'build';
 
     let devToolMode = 'hidden-source-map';
-    //let host = 'https://wp-sofa.de/';
-    let host = 'http://wpsofa.podcast/';
+    let host = 'https://wp-sofa.de/';
     let StyleInjectMode = 'styleTag';
     let themeName = '';
 
@@ -27,6 +27,14 @@ module.exports = async (env, argv) => {
         StyleInjectMode = 'styleTag';
     }
 
+    fs.readFile( path.resolve(__dirname, "style.css"), "utf8", (err, data) => {
+        if (err) throw err;
+        data = new Uint8Array(Buffer.from(data.replace(/Version: (.*?)-.*?\n/g,"Version: $1-" + version + "\n")));
+        fs.writeFile(path.resolve(__dirname, "style.css"), data, (err) => {
+            if (err) throw err;
+            console.log('style.css version updated.' );
+        });
+    });
 
     const logOutput = `
         mode: ${mode}
