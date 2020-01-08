@@ -18,7 +18,7 @@ $hits = !empty($wpSofaPlayer['hits']) ? $wpSofaPlayer['hits'] : 0;
 
 <div class="userInterActions">
 	<div>
-		<span class="icon-cassette tooltip">
+		<span class="icon-tape tooltip">
 			<span class="hitsCount"><?=$hits?></span>
 			<span class="tooltipContent">Du bist einer von <span class="hitsCount"><?=$hits?></span> Höhren. <b>Danke!</b><br />Gefält dir diese Folge, dann gib ihr doch einen <span class="icon-star-solid"></span></span>
 		</span>

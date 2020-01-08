@@ -59,7 +59,7 @@ module.exports = async (env, argv) => {
         devtool:      devToolMode,
         entry: entries('template-parts', 'webpack.imports.js'),
         output: {
-            path: path.resolve(__dirname, 'assets/dist/' + version),
+            path: path.resolve(__dirname, 'assets/dist/' + version + '/'),
             filename: '[name].bundle.[chunkhash].js',
             chunkFilename: '[name].chunk.js',
             publicPath: () => {
@@ -70,7 +70,7 @@ module.exports = async (env, argv) => {
                     arrayPath.push(pathAsArray[i]);
                 }
 
-                return host + arrayPath.reverse().join("\/") + "/assets/dist/" + version;
+                return host + arrayPath.reverse().join("\/") + "/assets/dist/" + version + '/';
             }
         },
         optimization: {

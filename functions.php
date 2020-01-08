@@ -1,7 +1,7 @@
 <?php
 
 /**
- * load wpsoaf theme assets like styles & scripts
+ * load wpsofa theme assets like styles & scripts
  */
 function wpsofa_enqueue_assets() {
 

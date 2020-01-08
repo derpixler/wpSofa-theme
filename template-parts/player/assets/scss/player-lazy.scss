@@ -215,7 +215,7 @@
 		color: $golden;
 	}
 
-	.icon-cassette.tooltip {
+	.icon-tape.tooltip {
 		> .tooltipContent{
 			&:before, &:after {
 				left: 6%;
@@ -262,7 +262,7 @@
 
 @media screen and (min-width: 1024px) {
 	.entry-header .userInterActions .icon-download.tooltip,
-	.entry-header .userInterActions .icon-cassette.tooltip {
+	.entry-header .userInterActions .icon-tape.tooltip {
 		&:hover{
 			cursor: help;
 		}

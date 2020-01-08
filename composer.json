@@ -1,8 +1,9 @@
 {
   "name": "web-dev-media/wpSofa-twentytwenty",
-  "description": "",
+  "description": "this is the official wp-sofa.de WordPress Theme based on twentytwenty",
   "license": "GPL-2.0",
   "type": "wordpress-theme",
+  "homepage": "https://github.com/web-dev-media/wpSofa-podcast-wordpress-theme",
   "require": {
     "php": ">=7.3"
   }

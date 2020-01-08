@@ -11,7 +11,7 @@
 
 
 $icons: (
-	cassette: "\e904",
+	tape: "\e904",
 	star-solid:"\e907",
 	star-regular: "\e908",
 	twitch: "\e900",
@@ -62,8 +62,8 @@ $icons: (
 	}
 }
 
-.icon-cassette {
-	@include icon(before, cassette){
+.icon-tape {
+	@include icon(before, tape){
 		top: 4px;
 	};
 }
