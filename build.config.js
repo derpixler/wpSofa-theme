@@ -1,23 +1,30 @@
+const glob = require("glob");
+
 const config = () => {
     const tmpFolder = '/tmp/'+ this.themeName;
+    const moduleFiles = glob.sync('./' + this.moduleBase + '/**/*.php');
+
+    let moduleFilesToCopy = [
+        { source: './assets/dist/'+ this.version + '/', destination: './'+ this.packageBase + tmpFolder + '/assets/dist/' + this.version },
+        { source: './assets/fonts/', destination: './'+ this.packageBase + tmpFolder + '/assets/fonts' },
+        { source: './functions.php', destination: './'+ this.packageBase + tmpFolder },
+        { source: './style.css', destination: './'+ this.packageBase + tmpFolder },
+        { source: './screenshot.png', destination: './'+ this.packageBase + tmpFolder }
+    ];
+
+    if(moduleFiles.length > 0){
+        moduleFiles.map((file, index) => {
+            moduleFilesToCopy.push( {
+                source: file,
+                destination: './'+ this.packageBase + tmpFolder + '/' + file.replace('./','')
+            });
+        });
+    }
 
 	return {
 		production : {
-			onStart: {
-				delete: [
-					'./'+ this.packageBase + '/tmp/'+ this.moduleBase + '/player/assets'
-				]
-			},
 			onEnd  : {
-				copy  : [
-					{ source: './assets/dist/'+ this.version + '/', destination: './'+ this.packageBase + tmpFolder + '/assets/dist/' + this.version },
-					{ source: './assets/fonts/', destination: './'+ this.packageBase + tmpFolder + '/assets/fonts' },
-					{ source: './functions.php', destination: './'+ this.packageBase + tmpFolder },
-					{ source: './style.css', destination: './'+ this.packageBase + tmpFolder },
-					{ source: './screenshot.png', destination: './'+ this.packageBase + tmpFolder },
-					{ source: './composer.json', destination: './'+ this.packageBase + tmpFolder },
-					{ source: './'+ this.moduleBase, destination: './'+ this.packageBase + tmpFolder + '/'+ this.moduleBase },
-				],
+				copy  : moduleFilesToCopy,
 				mkdir  : [
 					'./'+ this.packageBase + '/packages'
 				],
