@@ -2,5 +2,4 @@ node_modules
 .idea
 .DS_*
 /build/
-/assets/dist/production/
 /assets/dist/
