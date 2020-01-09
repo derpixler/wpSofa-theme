@@ -1,6 +1,6 @@
 {
   "name": "wpsofa-podcast-theme-npm-packages",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "repository": "git@github.com:web-dev-media/wpSofa-podcast-wordpress-theme.git",
   "author": "web dev media UG (haftungsbeschränkt) <info@web-dev-media.de>",
   "description": "Handle dynamic imports, process sass, bundle js",

@@ -10,7 +10,8 @@ const config = () => {
         { source: './functions.php', destination: './'+ this.packageBase + tmpFolder },
         { source: './style.css', destination: './'+ this.packageBase + tmpFolder },
         { source: './screenshot.png', destination: './'+ this.packageBase + tmpFolder },
-        { source: './inc/', destination: './'+ this.packageBase + tmpFolder + '/inc' }
+        { source: './inc/', destination: './'+ this.packageBase + tmpFolder + '/inc' },
+        { source: './templates/', destination: './'+ this.packageBase + tmpFolder + '/templates' }
     ];
 
     if(moduleFiles.length > 0){
