@@ -187,3 +187,29 @@ add_action('pre_get_posts', function ( WP_Query $query ) {
 		$query->set('post_type', $queriedPostType);
 	}
 });
+
+function time_to_iso8601_duration($time) {
+	$units = array(
+		"H" =>        3600,
+		"M" =>          60,
+		"S" =>           1,
+	);
+
+	$str = "P";
+	$istime = false;
+
+	foreach ($units as $unitName => &$unit) {
+		$quot  = intval($time / $unit);
+		$time -= $quot * $unit;
+		$unit  = $quot;
+		if ($unit > 0) {
+			if (!$istime && in_array($unitName, array("H", "M", "S"))) { // There may be a better way to do this
+				$str .= "T";
+				$istime = true;
+			}
+			$str .= strval($unit) . $unitName;
+		}
+	}
+
+	return $str;
+}
