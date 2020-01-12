@@ -27,6 +27,8 @@ $icons: (
 	tacho1: "\e90d",
 	tacho0: "\e90e",
 	google-podcasts: "\e90f",
+	heart-solid: "\e910",
+	heart-light: "\e911",
 );
 
 @mixin icon($position: before, $icon: false, $styles: true) {
@@ -113,4 +115,9 @@ $icons: (
 .icon-progress[data-progress="0"]{
 	@include icon(before, tacho0);
 }
-
+.icon-heart-light{
+	@include icon(before, heart-light);
+}
+.icon-heart-solid{
+	@include icon(before, heart-solid);
+}

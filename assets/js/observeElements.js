@@ -11,16 +11,16 @@
 window.observeElements = function(elements, cb, options) {
   options = options || {};
   const _options = {
-    loop : options.loop || false,
-    ratio: options.ratio || 0
+    loop: options.loop || false,
+    ratio: options.ratio || 0,
   };
 
   if ( elements ) {
     const io = new IntersectionObserver( function( entries ) {
       for ( const i in entries ) {
         if ( entries ) {
-          const entry = entries[ i ];
-          const elem = entries[ i ].target;
+          const entry = entries[i];
+          const elem = entries[i].target;
           if ( typeof entry.isVisible === 'undefined' ) {
             entry.isVisible = true;
           }
@@ -50,14 +50,13 @@ window.observeElements = function(elements, cb, options) {
 
     if ( NodeList.prototype.isPrototypeOf( elements ) ) {
       loopNodeElements(elements);
-    } else if (Array.prototype.isPrototypeOf( elements ) ){
+    } else if (Array.prototype.isPrototypeOf( elements ) ) {
       elements.forEach( function( elem ) {
-          io.observe( elem );
+        io.observe( elem );
       } );
     } else {
       io.observe( elements );
     }
-
   } else {
     console.warn( 'Call of observeElements without any Node or NodeList will be ignored.' );
   }

@@ -200,7 +200,7 @@
 		}
 	}
 
-	[class^="icon-star-"]{
+	[class^="icon-heart-"]{
 		&:hover{
 			cursor: pointer;
 			color: $golden;
@@ -211,8 +211,8 @@
 		}
 	}
 
-	.icon-star-solid, .icon-star-solid:before {
-		color: $golden;
+	.icon-heart-light, .icon-heart-solid:before {
+		color: $red;
 	}
 
 	.icon-tape.tooltip {

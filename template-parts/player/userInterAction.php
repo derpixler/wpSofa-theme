@@ -22,7 +22,7 @@ $hits = !empty($wpSofaPlayer['hits']) ? $wpSofaPlayer['hits'] : 0;
 			<span class="hitsCount"><?=$hits?></span>
 			<span class="tooltipContent">Du bist einer von <span class="hitsCount"><?=$hits?></span> Höhren. <b>Danke!</b><br />Gefält dir diese Folge, dann gib ihr doch einen <span class="icon-star-solid"></span></span>
 		</span>
-		<span class="icon-star-regular episodeLike"><?=!empty($wpSofaPlayer['likes']) ? $wpSofaPlayer['likes'] : 0?></span>
+		<span class="icon-heart-light episodeLike"><?=!empty($wpSofaPlayer['likes']) ? $wpSofaPlayer['likes'] : 0?></span>
 	</div>
 	<div>
 		<a class="icon-itunes" title="wp-sofa auf iTunes" href="https://itunes.apple.com/de/podcast/wp-sofa/id1090434579?mt=2" target="_blank"></a>
