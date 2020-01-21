@@ -1,17 +1,52 @@
 const applyfilters = require( 'applyfilters' );
 const localstorageHandle = require( '@web-dev-media/localstorage' );
 
-
 const likeEpisode = ( mediaPlayerObject ) => {
+  const likeEpisodeObject = {
+    construct: () => {
+      console.log(likeEpisodeObject);
+    },
+    fetch: {
+        localStorage: () => {},
+        restApi: () => {}
+    },
+    toggle: {
+        class: () => {},
+        state: () => {}
+    },
+  };
+
+  if(mediaPlayerObject){
+    return new Promise((resolve, reject) => {
+      likeEpisodeObject.construct();
+    });
+  }
+};
+
+/*
+const likeEpisode = ( mediaPlayerObject, resolve ) => {
   const storageKey = '_episode_liked';
 
   if ( mediaPlayerObject ) {
     const mediaPlayerParentNode = mediaPlayerObject.node.parentNode;
-    const liked = localstorageHandle.get( mediaPlayerObject.hash + storageKey );
-    const likeBtn = mediaPlayerParentNode.querySelector( '.episodeLike' );
-    const likeCount = mediaPlayerObject.likes !== undefined ? mediaPlayerObject.likes : null;
+    const liked                 = localstorageHandle.get( mediaPlayerObject.hash + storageKey );
+    const likeBtn               = mediaPlayerParentNode.querySelector( '.episodeLike' );
+    const likeCount             = mediaPlayerObject.likes !== undefined ? mediaPlayerObject.likes : null;
+
+    //resolve();
+    // rotate-vert-center
 
     if (!likeCount) {
+      console.log({
+        likes: mediaPlayerObject.likes,
+        mediaPlayerParentNode: mediaPlayerParentNode,
+        liked: liked,
+        likeBtn: likeBtn,
+        likeCount: likeCount,
+      });
+
+
+
       new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
@@ -28,6 +63,7 @@ const likeEpisode = ( mediaPlayerObject ) => {
       });
     }
 
+    /!*
     if ( liked === null ) {
       if ( likeBtn ) {
         likeBtn.addEventListener( 'click', () => {
@@ -56,13 +92,16 @@ const likeEpisode = ( mediaPlayerObject ) => {
     } else {
       likeBtn.classList.remove('icon-heart-light');
       likeBtn.classList.add('icon-heart-solid');
-    }
+    }*!/
   }
 };
+*/
+
 
 applyfilters.addFilter( 'mediaPlayerObject', ( resolve, mediaPlayerObject ) => {
-  likeEpisode( mediaPlayerObject );
-  resolve();
+  likeEpisode( mediaPlayerObject, resolve ).then(
+    resolve()
+  );
 }, 1 );
 
 
