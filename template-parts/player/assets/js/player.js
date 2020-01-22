@@ -244,4 +244,4 @@ class mediaPlayer {
   }
 }
 
-exports = module.exports = mediaPlayer;
+export default mediaPlayer;

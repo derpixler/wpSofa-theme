@@ -1,14 +1,80 @@
 const applyfilters = require( 'applyfilters' );
 const localstorageHandle = require( '@web-dev-media/localstorage' );
 
-const likeEpisode = ( mediaPlayerObject ) => {
+const likeEpisode = async ( mediaPlayerObject ) => {
+  const storageKey = '_episode_liked';
+
   const likeEpisodeObject = {
-    construct: () => {
-      console.log(likeEpisodeObject);
+
+    init: () => {
+      const mediaPlayerParentNode = mediaPlayerObject.node.parentNode;
+      console.log('asd');
+      const liked     = localstorageHandle.get( mediaPlayerObject.hash + storageKey );
+      const likeBtn   = mediaPlayerParentNode.querySelector( '.episodeLike' );
+      const likeCount = mediaPlayerObject.likes !== undefined ? mediaPlayerObject.likes : null;
+
+      let fetchSettings = {
+        method : 'POST',
+        headers: {
+          Accept        : 'application/json',
+          'Content-Type': 'application/json',
+        }
+      };
+
+      if (!likeCount) {
+       likeEpisodeObject.fetch.restApi(
+         'like_post/get',
+         {
+                      id: mediaPlayerParentNode.dataset.postId
+         },
+         'GET'
+       ).then(
+          data => console.log(data)
+       );
+      }
     },
+
     fetch: {
-        localStorage: () => {},
-        restApi: () => {}
+      localStorage: () => {},
+
+      restApi: async (restPath, args, method = 'POST') => {
+        const getBodyData = (args) => {
+          let a = [];
+
+          if(typeof args === "object"){
+            for (let arg in args) {
+              a.push(arg + "=" + args[arg]);
+            }
+          }
+
+          return JSON.stringify(a);
+        };
+
+        let fetchSettings = {
+          method : method,
+          headers: {
+            Accept        : 'application/json',
+            'Content-Type': 'application/json',
+          }
+        };
+
+        let fetchBody = getBodyData(args);
+
+        if(fetchBody.length > 0) {
+          fetchSettings.body = fetchBody;
+        }
+
+        try {
+          if(restPath !== ''){
+            const fetchResponse = await fetch( window.wpsofa.rest_url + 'wpsofa/v1/' + restPath, fetchSettings );
+
+            console.log(fetchSettings);
+            return await fetchResponse.json();
+          }
+        } catch ( e ) {
+          return e;
+        }
+      }
     },
     toggle: {
         class: () => {},
@@ -18,7 +84,7 @@ const likeEpisode = ( mediaPlayerObject ) => {
 
   if(mediaPlayerObject){
     return new Promise((resolve, reject) => {
-      likeEpisodeObject.construct();
+       likeEpisodeObject.init();
     });
   }
 };

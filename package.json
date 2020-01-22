@@ -15,11 +15,13 @@
     "Firefox > 50"
   ],
   "dependencies": {
+    "@babel/runtime": "^7.8.3",
     "eslint": "^6.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.7.7",
     "@material/slider": "^4.0.0",
     "@web-dev-media/localstorage": "^1.0.2",
