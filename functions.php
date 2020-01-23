@@ -136,9 +136,20 @@ add_action('rest_api_init', function () {
  *      POST: ids=post_id,post_id,post_id,
  *
  * @param \WP_REST_Request $request
+ *
+ * @return string
  */
 function get_likes_by_post_ids( \WP_REST_Request $request ): string {
 	$post_ids = $request->get_body_params();
+
+	echo '<pre>';
+	print_r([
+		        'DEBUG_LOCATION' => ['PATH' => dirname(__FILE__), 'FILE' => basename(__FILE__), 'FUNCTION' => __FUNCTION__ . ':' . __LINE__],
+		        'DEBUG'          => [
+			        '$request' => $request,
+		        ]
+	        ]);
+	die();
 
 	if (!empty($post_ids['id'])) {
 		foreach (explode(',', $post_ids['id']) as $post_id) {
@@ -161,6 +172,8 @@ function get_likes_by_post_ids( \WP_REST_Request $request ): string {
  *      POST: id=post_id
  *
  * @param \WP_REST_Request $request
+ *
+ * @return string
  */
 function write_likes_by_post_id( \WP_REST_Request $request ): string {
 	$post_id = $request->get_body_params();
