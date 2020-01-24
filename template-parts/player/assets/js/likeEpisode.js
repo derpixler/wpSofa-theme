@@ -9,14 +9,20 @@ const localstorageHandle = require( '@web-dev-media/localstorage' );
  *
  * @namespace LikeEpisode
  * @param {object} mediaPlayerObject
+ * @param {function} resolve
  *
  * @return {Promise}
  */
-const likeEpisode = async ( mediaPlayerObject ) => {
+const likeEpisode = async ( mediaPlayerObject, resolve ) => {
 
   /** @constant {string} */
   const storageKey = '_episode_liked';
+
+  /** @constant {string} */
   const restBaseUrl = window.wpsofa.rest_url;
+
+  /** @var {int} */
+  let currentLikes = 0;
 
   /**
    * @namespace LikeEpisodeObject
@@ -33,88 +39,95 @@ const likeEpisode = async ( mediaPlayerObject ) => {
      * @constant {Node} likeBtn
      */
     init: () => {
-      const mediaPlayerParentNode = mediaPlayerObject.node.parentNode;
-      const likeCount = parseInt(mediaPlayerObject.likes !== undefined ? mediaPlayerObject.likes : 0);
-      const liked     = localstorageHandle.get( mediaPlayerObject.hash + storageKey );
-      const likeBtn   = mediaPlayerParentNode.querySelector( '.episodeLike' );
+      const likeBtnNodes   = document.querySelectorAll( '.episodeLike' );
 
-      if ( !likeCount ) {
-        likeEpisodeObject.fetch.restApi(
-          'like_post/get',
-          {
-            id: mediaPlayerParentNode.dataset.postId
+      if(likeBtnNodes){
+        likeBtnNodes.forEach( (likeBtn) => {
+          likeEpisodeObject.validate.datasetHash(likeBtn);
+          likeEpisodeObject.validate.datasetEpisodeId(likeBtn);
+
+          const liked = localstorageHandle.get( likeBtn.dataset.episodeHash + storageKey );
+
+          if(likeBtn) {
+            /* update likeBtn count state */
+            likeEpisodeObject.fetch.restApi(
+              'get', {
+                id: likeBtn.dataset.episodeId
+              }).then( () => {
+              likeBtn.innerHTML = likeEpisode.currentLikes;
+            } );
+
+
+            /* handle like update if user have not liked yet*/
+            if ( liked === null ) {
+              likeBtn.addEventListener( 'click', likeEpisodeObject.events.click(this));
+            }else{
+              likeBtn.removeEventListener('click');
+            }
+
           }
-        ).then(
-          data => console.log( data )
-        );
+        });
+      }
+    },
+
+    events: {
+      click: (likeBtn) => {
+        likeEpisodeObject.fetch.restApi(
+          'put', {
+            id: likeBtn.dataset.episodeId
+          }
+        ).then( () => {
+          likeBtn.innerHTML = likeEpisode.currentLikes;
+          localstorageHandle.update( mediaPlayerObject.hash + storageKey, true );
+        } );
       }
     },
 
     /**
+     * Collection of fetch methods like fetch restApi
+     *
      * @namespace LikeEpisodeObject/fetch
-     * @property {function} localStorage  - read and store data in users localstorage
      * @property {async.function} restApi - fetch wpsofa/v1 wordpress rest endpoint
      */
     fetch: {
-      localStorage: () => {},
-
       /**
        * Async wordpress restApi fetch method
+       * @namespace LikeEpisodeObject/fetch/restApi
        *
        * @example  likeEpisodeObject.fetch.restApi( 'like_post/get', {id: 987}, 'GET').then();
        *
-       * @namespace LikeEpisodeObject/fetch/restApi
        * @param {string} restPath - restApi base path
        * @param {object} args - request arguments {post_id: 23, post_foo: 'bar'}
-       * @param {string} method - request method, means GET or POST - default method is POST
        *
        * @return {Promise|string} - response data
        */
-      restApi: async (restPath, args, method = 'POST') => {
+      restApi: async (restPath, args) => {
         if(restBaseUrl === undefined){
           console.warn('RestBaseUrl is undefined. Define a "restBaseUrl" like window.wpsofa.rest_url = "URL"');
           return;
         }
 
+        if(args === undefined){
+          console.warn('POST arguments are missing');
+          return;
+        }
+
         let fetchSettings = {
-          method : method,
+          method : 'POST',
           headers: {
             Accept        : 'application/json',
             'Content-Type': 'application/json',
-          }
+          },
+          body: JSON.stringify(args)
         };
-
-        const setFetchBody = (args) => {
-          let a = [];
-
-          if(typeof args === "object"){
-            for (let arg in args) {
-              if(args.hasOwnProperty(arg)) {
-                a.push( arg + "=" + args[ arg ] );
-              }
-            }
-          }
-
-          return a;
-        };
-
-        const fetchBody = setFetchBody(args);
-
-        if(method === 'POST' && fetchBody.length > 0) {
-          fetchSettings.body = JSON.stringify(fetchBody);
-        }else if(method === 'GET'){
-          restPath += '?' + fetchBody.join('&');
-        }
-
 
         if(restPath !== ''){
-          await fetch( restBaseUrl + 'wpsofa/v1/' + restPath, fetchSettings )
-            .then( ( response ) => response.text() )
+          await fetch( restBaseUrl + 'wpsofa/v1/like_post/' + restPath, fetchSettings )
+            .then( ( response ) => response.json() )
             .then( ( contents ) => {
-              console.log(contents);
-              return contents;
+              return likeEpisodeObject.setCurrentLikes(contents);
             } )
-            .catch( () => console.log( 'Can`t access ' + url + ' response. Blocked by browser?' ) );
+            .catch( () => console.log( 'Can`t access ' + restPath + ' response. Blocked by browser?' ) );
         }
       }
     },
@@ -123,6 +136,38 @@ const likeEpisode = async ( mediaPlayerObject ) => {
         class: () => {},
         state: () => {}
     },
+
+    /**
+     * Collection of validators
+     *
+     * @namespace LikeEpisodeObject/validate
+     * @property {function} datasetHash - validator for dataset.episodeHash
+     */
+    validate: {
+        datasetHash: ( likeBtn ) => {
+          if ( !likeBtn.dataset.episodeHash ) {
+            throw new Error( "\n Dataset 'episodeHash' is undefined! \n Define a data attribute on your '.episodeLike' Element. \n example: <span class='episodeLike' data-episode-hash='[VALUE]]'></span>");
+          }
+
+          return true;
+        },
+        datasetEpisodeId: ( likeBtn ) => {
+          if ( !likeBtn.dataset.episodeId ) {
+            throw new Error( "\n Dataset 'episodeId' is undefined! \n Define a data attribute on your '.episodeLike' Element. \n example: <span class='episodeLike' data-episode-id='[VALUE]]'></span>");
+          }
+
+          return true;
+        }
+    },
+
+    /**
+     * setter for likeEpisode.currentLikes
+     * @param {string} likes - counter for likes
+     * @return {string}
+     */
+    setCurrentLikes: (likes) => {
+      likeEpisode.currentLikes = likes;
+    }
   };
 
   if(mediaPlayerObject){
@@ -136,41 +181,8 @@ const likeEpisode = async ( mediaPlayerObject ) => {
 const likeEpisode = ( mediaPlayerObject, resolve ) => {
   const storageKey = '_episode_liked';
 
-  if ( mediaPlayerObject ) {
-    const mediaPlayerParentNode = mediaPlayerObject.node.parentNode;
-    const liked                 = localstorageHandle.get( mediaPlayerObject.hash + storageKey );
-    const likeBtn               = mediaPlayerParentNode.querySelector( '.episodeLike' );
-    const likeCount             = mediaPlayerObject.likes !== undefined ? mediaPlayerObject.likes : null;
-
     //resolve();
     // rotate-vert-center
-
-    if (!likeCount) {
-      console.log({
-        likes: mediaPlayerObject.likes,
-        mediaPlayerParentNode: mediaPlayerParentNode,
-        liked: liked,
-        likeBtn: likeBtn,
-        likeCount: likeCount,
-      });
-
-
-
-      new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-          if ( xhr.readyState === 4 ) {
-            likeBtn.innerHTML = xhr.responseText.replace( '"', '' ).replace( '"', '' );
-            mediaPlayerObject.likes = JSON.parse( xhr.responseText );
-            resolve();
-          }
-        };
-
-        xhr.open( 'POST', window.wpsofa.rest_url + 'wpsofa/v1/like_post/get' );
-        xhr.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
-        xhr.send( 'id=' + mediaPlayerParentNode.dataset.postId );
-      });
-    }
 
     /!*
     if ( liked === null ) {

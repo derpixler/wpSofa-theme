@@ -140,16 +140,7 @@ add_action('rest_api_init', function () {
  * @return string
  */
 function get_likes_by_post_ids( \WP_REST_Request $request ): string {
-	$post_ids = $request->get_body_params();
-
-	echo '<pre>';
-	print_r([
-		        'DEBUG_LOCATION' => ['PATH' => dirname(__FILE__), 'FILE' => basename(__FILE__), 'FUNCTION' => __FUNCTION__ . ':' . __LINE__],
-		        'DEBUG'          => [
-			        '$request' => $request,
-		        ]
-	        ]);
-	die();
+	$post_ids = $request->get_json_params();
 
 	if (!empty($post_ids['id'])) {
 		foreach (explode(',', $post_ids['id']) as $post_id) {
