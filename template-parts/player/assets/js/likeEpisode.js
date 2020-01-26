@@ -61,19 +61,19 @@ const likeEpisode = async () => {
 			}
 		},
 
-    /**
-     * Collection of events methods
-     *
-     * @namespace LikeEpisodeObject/events
-     * @property {function} click - click event for likeBtn
-     */
+		/**
+		 * Collection of events methods
+		 *
+		 * @namespace LikeEpisodeObject/events
+		 * @property {function} click - click event for likeBtn
+		 */
 		events: {
 
-      /**
-       * Handle the click on a likeBtn
-       * @namespace LikeEpisodeObject/events/click
-       * @param {Node} event - MouseClickEvent
-       */
+			/**
+			 * Handle the click on a likeBtn
+			 * @namespace LikeEpisodeObject/events/click
+			 * @param {Node} event - MouseClickEvent
+			 */
 			click: ( event ) => {
 				let likeBtn = event.target;
 
@@ -100,7 +100,7 @@ const likeEpisode = async () => {
 		 */
 		fetch: {
 
-		  /**
+			/**
 			 * Async wordpress restApi fetch method
 			 * @namespace LikeEpisodeObject/fetch/restApi
 			 *
