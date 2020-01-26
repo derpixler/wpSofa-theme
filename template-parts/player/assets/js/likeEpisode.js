@@ -1,4 +1,3 @@
-const applyfilters = require( 'applyfilters' );
 const localstorageHandle = require( '@web-dev-media/localstorage' );
 
 /**
@@ -8,221 +7,214 @@ const localstorageHandle = require( '@web-dev-media/localstorage' );
  * @version 1.2.0
  *
  * @namespace LikeEpisode
- * @param {object} mediaPlayerObject
- * @param {function} resolve
  *
  * @return {Promise}
  */
-const likeEpisode = async ( mediaPlayerObject, resolve ) => {
+const likeEpisode = async () => {
 
-  /** @constant {string} */
-  const storageKey = '_episode_liked';
+	/** @constant {string} likeEpisode.storageKey */
+	const storageKey = '_episode_liked';
 
-  /** @constant {string} */
-  const restBaseUrl = window.wpsofa.rest_url;
+	/** @constant {string}  likeEpisode.restBaseUrl */
+	const restBaseUrl = window.wpsofa.rest_url;
 
-  /** @var {int} */
-  let currentLikes = 0;
+	/** @var {int} currentLikes */
+	let currentLikes = 0;
 
-  /**
-   * @namespace LikeEpisodeObject
-   * @property {function} init  - initialise likeEpisode method
-   * @property {object} fetch   - provides methods for fetch data via restAPi and localstorage
-   * @property {object} toggle  - handle toggle events
-   */
-  const likeEpisodeObject = {
+	/**
+	 * @namespace LikeEpisodeObject
+	 * @property {function} init  - initialise likeEpisode method
+	 * @property {object} fetch   - provides methods for fetch data via restAPi and localstorage
+	 * @property {object} toggle  - handle toggle events
+	 */
+	const likeEpisodeObject = {
 
-    /**
-     * @constant {Node} mediaPlayerParentNode
-     * @constant {int} likeCount  - exiting like counts
-     * @constant {bool} liked     - still liked episode by fetch state from users localstorage
-     * @constant {Node} likeBtn
-     */
-    init: () => {
-      const likeBtnNodes   = document.querySelectorAll( '.episodeLike' );
+		/**
+		 * @constant {Node} mediaPlayerParentNode
+		 * @constant {int} likeCount  - exiting like counts
+		 * @constant {bool} liked     - still liked episode by fetch state from users localstorage
+		 * @constant {Node} likeBtn
+		 */
+		init: ( resolve, reject ) => {
+			const likeBtnNodes = document.querySelectorAll( '.episodeLike' );
 
-      if(likeBtnNodes){
-        likeBtnNodes.forEach( (likeBtn) => {
-          likeEpisodeObject.validate.datasetHash(likeBtn);
-          likeEpisodeObject.validate.datasetEpisodeId(likeBtn);
+			if ( likeBtnNodes ) {
+				likeBtnNodes.forEach( ( likeBtn ) => {
+					likeEpisodeObject.validate.datasetAttributes( likeBtn, reject );
 
-          const liked = localstorageHandle.get( likeBtn.dataset.episodeHash + storageKey );
+					if ( likeBtn ) {
 
-          if(likeBtn) {
-            /* update likeBtn count state */
-            likeEpisodeObject.fetch.restApi(
-              'get', {
-                id: likeBtn.dataset.episodeId
-              }).then( () => {
-              likeBtn.innerHTML = likeEpisode.currentLikes;
-            } );
+						/* update likeBtn count state */
+						likeEpisodeObject.fetch.restApi(
+							'get', {
+								id: likeBtn.dataset.episodeId
+							} ).then( () => {
+							likeBtn.innerHTML = likeEpisode.currentLikes;
+							resolve();
+						} );
 
+						/* handle like update if user have not liked yet*/
+						likeEpisodeObject.toggle.eventListener( likeBtn, 'click', likeEpisodeObject.events.click );
+					}
+				} );
 
-            /* handle like update if user have not liked yet*/
-            if ( liked === null ) {
-              likeBtn.addEventListener( 'click', likeEpisodeObject.events.click(this));
-            }else{
-              likeBtn.removeEventListener('click');
-            }
-
-          }
-        });
-      }
-    },
-
-    events: {
-      click: (likeBtn) => {
-        likeEpisodeObject.fetch.restApi(
-          'put', {
-            id: likeBtn.dataset.episodeId
-          }
-        ).then( () => {
-          likeBtn.innerHTML = likeEpisode.currentLikes;
-          localstorageHandle.update( mediaPlayerObject.hash + storageKey, true );
-        } );
-      }
-    },
+			}
+		},
 
     /**
-     * Collection of fetch methods like fetch restApi
+     * Collection of events methods
      *
-     * @namespace LikeEpisodeObject/fetch
-     * @property {async.function} restApi - fetch wpsofa/v1 wordpress rest endpoint
+     * @namespace LikeEpisodeObject/events
+     * @property {function} click - click event for likeBtn
      */
-    fetch: {
+		events: {
+
       /**
-       * Async wordpress restApi fetch method
-       * @namespace LikeEpisodeObject/fetch/restApi
-       *
-       * @example  likeEpisodeObject.fetch.restApi( 'like_post/get', {id: 987}, 'GET').then();
-       *
-       * @param {string} restPath - restApi base path
-       * @param {object} args - request arguments {post_id: 23, post_foo: 'bar'}
-       *
-       * @return {Promise|string} - response data
+       * Handle the click on a likeBtn
+       * @namespace LikeEpisodeObject/events/click
+       * @param {Node} event - MouseClickEvent
        */
-      restApi: async (restPath, args) => {
-        if(restBaseUrl === undefined){
-          console.warn('RestBaseUrl is undefined. Define a "restBaseUrl" like window.wpsofa.rest_url = "URL"');
-          return;
-        }
+			click: ( event ) => {
+				let likeBtn = event.target;
 
-        if(args === undefined){
-          console.warn('POST arguments are missing');
-          return;
-        }
+				likeEpisodeObject.fetch.restApi(
+					'put', {
+						id: likeBtn.dataset.episodeId
+					}
+				).then( () => {
+					likeEpisodeObject.toggle.classes( likeBtn );
+					likeBtn.innerHTML = likeEpisode.currentLikes;
 
-        let fetchSettings = {
-          method : 'POST',
-          headers: {
-            Accept        : 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(args)
-        };
+					localstorageHandle.update( likeBtn.dataset.episodeId + storageKey, true );
+					likeEpisodeObject.toggle.eventListener( likeBtn, 'click', likeEpisodeObject.events.click );
 
-        if(restPath !== ''){
-          await fetch( restBaseUrl + 'wpsofa/v1/like_post/' + restPath, fetchSettings )
-            .then( ( response ) => response.json() )
-            .then( ( contents ) => {
-              return likeEpisodeObject.setCurrentLikes(contents);
-            } )
-            .catch( () => console.log( 'Can`t access ' + restPath + ' response. Blocked by browser?' ) );
-        }
-      }
-    },
+				} );
+			}
+		},
 
-    toggle: {
-        class: () => {},
-        state: () => {}
-    },
+		/**
+		 * Collection of fetch methods like fetch restApi
+		 *
+		 * @namespace LikeEpisodeObject/fetch
+		 * @property {async.function} restApi - fetch wpsofa/v1 wordpress rest endpoint
+		 */
+		fetch: {
 
-    /**
-     * Collection of validators
-     *
-     * @namespace LikeEpisodeObject/validate
-     * @property {function} datasetHash - validator for dataset.episodeHash
-     */
-    validate: {
-        datasetHash: ( likeBtn ) => {
-          if ( !likeBtn.dataset.episodeHash ) {
-            throw new Error( "\n Dataset 'episodeHash' is undefined! \n Define a data attribute on your '.episodeLike' Element. \n example: <span class='episodeLike' data-episode-hash='[VALUE]]'></span>");
-          }
+		  /**
+			 * Async wordpress restApi fetch method
+			 * @namespace LikeEpisodeObject/fetch/restApi
+			 *
+			 * @example  likeEpisodeObject.fetch.restApi( 'like_post/get', {id: 987}, 'GET').then();
+			 *
+			 * @param {string} restPath - restApi base path
+			 * @param {object} args - request arguments {post_id: 23, post_foo: 'bar'}
+			 *
+			 * @return {Promise|string} - response data
+			 */
+			restApi: async ( restPath, args ) => {
+				if ( restBaseUrl === undefined ) {
+					console.warn( 'RestBaseUrl is undefined. Define a "restBaseUrl" like window.wpsofa.rest_url = "URL"' );
+					return;
+				}
 
-          return true;
-        },
-        datasetEpisodeId: ( likeBtn ) => {
-          if ( !likeBtn.dataset.episodeId ) {
-            throw new Error( "\n Dataset 'episodeId' is undefined! \n Define a data attribute on your '.episodeLike' Element. \n example: <span class='episodeLike' data-episode-id='[VALUE]]'></span>");
-          }
+				if ( args === undefined ) {
+					console.warn( 'POST arguments are missing' );
+					return;
+				}
 
-          return true;
-        }
-    },
+				let fetchSettings = {
+					method : 'POST',
+					headers: {
+						Accept        : 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body   : JSON.stringify( args )
+				};
 
-    /**
-     * setter for likeEpisode.currentLikes
-     * @param {string} likes - counter for likes
-     * @return {string}
-     */
-    setCurrentLikes: (likes) => {
-      likeEpisode.currentLikes = likes;
-    }
-  };
+				if ( restPath !== '' ) {
+					await fetch( restBaseUrl + 'wpsofa/v1/like_post/' + restPath, fetchSettings )
+						.then( ( response ) => response.json() )
+						.then( ( contents ) => {
+							return likeEpisodeObject.setCurrentLikes( contents );
+						} )
+						.catch( () => console.log( 'Can`t access ' + restPath + ' response. Blocked by browser?' ) );
+				}
+			}
+		},
 
-  if(mediaPlayerObject){
-    return new Promise((resolve, reject) => {
-       likeEpisodeObject.init();
-    });
-  }
+		/**
+		 * Collection of toggle methods
+		 *
+		 * @namespace LikeEpisodeObject/toggle
+		 * @property {function} classes - change classes on likeBtn node
+		 * @property {function} eventListener - add ore remove eventListener on a node
+		 */
+		toggle: {
+
+			/**
+			 * Change classes on likeBtn node
+			 *
+			 * @namespace LikeEpisodeObject/toggle/classes
+			 * @param {Node} node
+			 * @return void
+			 */
+			classes: ( node ) => {
+				node.classList.remove( 'icon-heart-light' );
+				node.classList.add( 'rotate-vert-center' );
+				node.classList.add( 'icon-heart-solid' );
+			},
+
+			/**
+			 * Toggle eventListener for an note
+			 *
+			 * @namespace LikeEpisodeObject/toggle/eventListener
+			 * @param {Node} node
+			 * @param {string} event - eventListener like click ..
+			 * @param {function} callback
+			 *
+			 * @return void
+			 */
+			eventListener: ( node, event, callback ) => {
+				likeEpisodeObject.validate.liked( node ) === null ? node.addEventListener( event, callback ) : node.removeEventListener( event, callback );
+			}
+		},
+
+		/**
+		 * Collection of validators
+		 *
+		 * @namespace LikeEpisodeObject/validate
+		 * @property {function} liked - validator for liked stats
+		 */
+		validate: {
+			datasetAttributes: ( likeBtn, reject ) => {
+				if ( !likeBtn.dataset.episodeId ) {
+					console.error( "\n Dataset 'episodeId' are undefined! \n Define a data attribute on your '.episodeLike' Element. \n example: <span class='episodeLike' data-episode-id='[VALUE]]'></span>" );
+					reject();
+				}
+
+				return true;
+			},
+
+			liked: ( node ) => {
+				return localstorageHandle.get( node.dataset.episodeId + storageKey );
+			}
+		},
+
+		/**
+		 * setter for likeEpisode.currentLikes
+		 * @param {string} likes - counter for likes
+		 * @return {string}
+		 */
+		setCurrentLikes: ( likes ) => {
+			likeEpisode.currentLikes = likes;
+		}
+	};
+
+	new Promise( ( resolve, reject ) => {
+		likeEpisodeObject.init( resolve, reject );
+	} );
 };
 
-/*
-const likeEpisode = ( mediaPlayerObject, resolve ) => {
-  const storageKey = '_episode_liked';
-
-    //resolve();
-    // rotate-vert-center
-
-    /!*
-    if ( liked === null ) {
-      if ( likeBtn ) {
-        likeBtn.addEventListener( 'click', () => {
-          const liked = localstorageHandle.get( mediaPlayerObject.hash + storageKey );
-
-          if ( liked === null ) {
-            new Promise((resolve, reject) => {
-              const xhr = new XMLHttpRequest();
-              xhr.onreadystatechange = function() {
-                if ( xhr.readyState === 4 ) {
-                  likeBtn.innerHTML = JSON.parse(xhr.responseText);
-                  likeBtn.classList.remove( 'icon-star-regular' );
-                  likeBtn.classList.add( 'icon-heart-solid' );
-                }
-              };
-
-              xhr.open( 'POST', window.wpsofa.rest_url + 'wpsofa/v1/like_post/put' );
-              xhr.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
-              xhr.send( 'id=' + mediaPlayerParentNode.dataset.postId );
-
-              localstorageHandle.update( mediaPlayerObject.hash + storageKey, true );
-            });
-          }
-        } );
-      }
-    } else {
-      likeBtn.classList.remove('icon-heart-light');
-      likeBtn.classList.add('icon-heart-solid');
-    }*!/
-  }
-};
-*/
-
-
-applyfilters.addFilter( 'mediaPlayerObject', ( resolve, mediaPlayerObject ) => {
-  likeEpisode( mediaPlayerObject, resolve ).then(
-    resolve()
-  );
-}, 1 );
+new likeEpisode();
 
 

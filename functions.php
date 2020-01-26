@@ -140,10 +140,10 @@ add_action('rest_api_init', function () {
  * @return string
  */
 function get_likes_by_post_ids( \WP_REST_Request $request ): string {
-	$post_ids = $request->get_json_params();
+	$post_id = $request->get_json_params();
 
-	if (!empty($post_ids['id'])) {
-		foreach (explode(',', $post_ids['id']) as $post_id) {
+	if (!empty($post_id['id'])) {
+		foreach (explode(',', $post_id['id']) as $post_id) {
 			$hits = get_post_meta($post_id, '_post_like_count', TRUE);
 
 			if (!empty($hits)) {
@@ -167,7 +167,7 @@ function get_likes_by_post_ids( \WP_REST_Request $request ): string {
  * @return string
  */
 function write_likes_by_post_id( \WP_REST_Request $request ): string {
-	$post_id = $request->get_body_params();
+	$post_id = $request->get_json_params();
 	$metaKey = '_post_like_count';
 	$newVal = 0;
 
