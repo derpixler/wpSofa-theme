@@ -21,19 +21,19 @@ const likeEpisode = async () => {
   const currentLikes = 0;
 
   /**
-     * @namespace LikeEpisodeObject
-     * @property {function} init  - initialise likeEpisode method
-     * @property {object} fetch   - provides methods for fetch data via restAPi and localstorage
-     * @property {object} toggle  - handle toggle events
-     */
+   * @namespace LikeEpisodeObject
+   * @property {function} init  - initialise likeEpisode method
+   * @property {object} fetch   - provides methods for fetch data via restAPi and localstorage
+   * @property {object} toggle  - handle toggle events
+   */
   const likeEpisodeObject = {
 
     /**
-         * @constant {Node} mediaPlayerParentNode
-         * @constant {int} likeCount  - exiting like counts
-         * @constant {bool} liked     - still liked episode by fetch state from users localstorage
-         * @constant {Node} likeBtn
-         */
+     * @constant {Node} mediaPlayerParentNode
+     * @constant {int} likeCount  - exiting like counts
+     * @constant {bool} liked     - still liked episode by fetch state from users localstorage
+     * @constant {Node} likeBtn
+     */
     init: ( resolve, reject ) => {
       const likeBtnNodes = document.querySelectorAll( '.episodeLike' );
 
@@ -59,18 +59,18 @@ const likeEpisode = async () => {
     },
 
     /**
-         * Collection of events methods
-         *
-         * @namespace LikeEpisodeObject/events
-         * @property {function} click - click event for likeBtn
-         */
+     * Collection of events methods
+     *
+     * @namespace LikeEpisodeObject/events
+     * @property {function} click - click event for likeBtn
+     */
     events: {
 
       /**
-             * Handle the click on a likeBtn
-             * @namespace LikeEpisodeObject/events/click
-             * @param {Node} event - MouseClickEvent
-             */
+       * Handle the click on a likeBtn
+       * @namespace LikeEpisodeObject/events/click
+       * @param {Node} event - MouseClickEvent
+       */
       click: ( event ) => {
         const likeBtn = event.target;
 
@@ -89,24 +89,24 @@ const likeEpisode = async () => {
     },
 
     /**
-         * Collection of fetch methods like fetch restApi
-         *
-         * @namespace LikeEpisodeObject/fetch
-         * @property {async.function} restApi - fetch wpsofa/v1 wordpress rest endpoint
-         */
+     * Collection of fetch methods like fetch restApi
+     *
+     * @namespace LikeEpisodeObject/fetch
+     * @property {async.function} restApi - fetch wpsofa/v1 wordpress rest endpoint
+     */
     fetch: {
 
       /**
-             * Async wordpress restApi fetch method
-             * @namespace LikeEpisodeObject/fetch/restApi
-             *
-             * @example  likeEpisodeObject.fetch.restApi( 'like_post/get', {id: 987}, 'GET').then();
-             *
-             * @param {string} restPath - restApi base path
-             * @param {object} args - request arguments {post_id: 23, post_foo: 'bar'}
-             *
-             * @return {Promise|string} - response data
-             */
+       * Async wordpress restApi fetch method
+       * @namespace LikeEpisodeObject/fetch/restApi
+       *
+       * @example  likeEpisodeObject.fetch.restApi( 'like_post/get', {id: 987}, 'GET').then();
+       *
+       * @param {string} restPath - restApi base path
+       * @param {object} args - request arguments {post_id: 23, post_foo: 'bar'}
+       *
+       * @return {Promise|string} - response data
+       */
       restApi: async ( restPath, args ) => {
         if ( restBaseUrl === undefined ) {
           console.warn( 'RestBaseUrl is undefined. Define a "restBaseUrl" like window.wpsofa.rest_url = "URL"' );
@@ -139,21 +139,21 @@ const likeEpisode = async () => {
     },
 
     /**
-         * Collection of toggle methods
-         *
-         * @namespace LikeEpisodeObject/toggle
-         * @property {function} classes - change classes on likeBtn node
-         * @property {function} eventListener - add ore remove eventListener on a node
-         */
+     * Collection of toggle methods
+     *
+     * @namespace LikeEpisodeObject/toggle
+     * @property {function} classes - change classes on likeBtn node
+     * @property {function} eventListener - add ore remove eventListener on a node
+     */
     toggle: {
 
       /**
-             * Change classes on likeBtn node
-             *
-             * @namespace LikeEpisodeObject/toggle/classes
-             * @param {Node} node
-             * @return void
-             */
+       * Change classes on likeBtn node
+       *
+       * @namespace LikeEpisodeObject/toggle/classes
+       * @param {Node} node
+       * @return void
+       */
       classes: ( node ) => {
         node.classList.remove( 'icon-heart-light' );
         node.classList.add( 'rotate-vert-center' );
@@ -161,26 +161,26 @@ const likeEpisode = async () => {
       },
 
       /**
-             * Toggle eventListener for an note
-             *
-             * @namespace LikeEpisodeObject/toggle/eventListener
-             * @param {Node} node
-             * @param {string} event - eventListener like click ..
-             * @param {function} callback
-             *
-             * @return void
-             */
+       * Toggle eventListener for an note
+       *
+       * @namespace LikeEpisodeObject/toggle/eventListener
+       * @param {Node} node
+       * @param {string} event - eventListener like click ..
+       * @param {function} callback
+       *
+       * @return void
+       */
       eventListener: ( node, event, callback ) => {
                 likeEpisodeObject.validate.liked( node ) === null ? node.addEventListener( event, callback ) : node.removeEventListener( event, callback );
       },
     },
 
     /**
-         * Collection of validators
-         *
-         * @namespace LikeEpisodeObject/validate
-         * @property {function} liked - validator for liked stats
-         */
+     * Collection of validators
+     *
+     * @namespace LikeEpisodeObject/validate
+     * @property {function} liked - validator for liked stats
+     */
     validate: {
       datasetAttributes: ( likeBtn, reject ) => {
         if ( !likeBtn.dataset.episodeId ) {
@@ -197,10 +197,10 @@ const likeEpisode = async () => {
     },
 
     /**
-         * setter for likeEpisode.currentLikes
-         * @param {string} likes - counter for likes
-         * @return {string}
-         */
+     * setter for likeEpisode.currentLikes
+     * @param {string} likes - counter for likes
+     * @return {string}
+     */
     setCurrentLikes: ( likes ) => {
       likeEpisode.currentLikes = likes;
     },
