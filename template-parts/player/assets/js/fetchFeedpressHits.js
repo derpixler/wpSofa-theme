@@ -1,25 +1,25 @@
 const applyfilters = require( 'applyfilters' );
 const hash = require( 'object-hash' );
-const localstorageHandle = require( '@web-dev-media/localstorage' );
+const localStorage = require( '@web-dev-media/localstorage' );
 
 const fetchFeedpressHits = ( mediaPlayerCollection ) => {
   mediaPlayerCollectionLength = mediaPlayerCollection.length;
   postIds = [];
-  const storageKeyBase = 'fetchedHits_';
+  const storageKey = 'fetchedHits_';
 
   const updateHits = function( hits, fromCache ) {
     hits = JSON.parse( JSON.parse( hits ) );
 
     if ( hits !== undefined ) {
-      mediaPlayerCollection.forEach( (mediaPlayer) => {
+      mediaPlayerCollection.forEach( ( mediaPlayer ) => {
         const hitsElems = mediaPlayer.node.parentNode.querySelectorAll( '.hitsCount' );
         mediaPlayer.hits = hits[mediaPlayer.postId];
 
-        hitsElems.forEach( (hitsElem) => {
+        hitsElems.forEach( ( hitsElem ) => {
           const currentAmount = hitsElem.innerText;
           const fetchedHits = hits[mediaPlayer.postId];
 
-          console.log(fetchedHits);
+          console.log( fetchedHits );
 
           if ( fetchedHits > currentAmount ) {
             hitsElem.innerText = currentAmount;
@@ -30,7 +30,7 @@ const fetchFeedpressHits = ( mediaPlayerCollection ) => {
   };
 
   if ( mediaPlayerCollectionLength > 0 ) {
-    mediaPlayerCollection.forEach( (mediaPlayer) => {
+    mediaPlayerCollection.forEach( ( mediaPlayer ) => {
       const playerParentNode = mediaPlayer.node.parentNode;
       const postId = playerParentNode != null ? playerParentNode.dataset.postId : null;
       ;
@@ -41,17 +41,15 @@ const fetchFeedpressHits = ( mediaPlayerCollection ) => {
       }
     } );
 
-    const timestamp = localstorageHandle.get( storageKeyBase + hash( postIds ) + '_timestamp' );
-    const hits = Date.now() - timestamp > (
-			1000 * 60 * 60
-		) ? null : localstorageHandle.get( storageKeyBase + hash( postIds ) );
+    const timestamp = localStorage.get( storageKey + hash( postIds ) + '_timestamp' );
+    const hits = Date.now() - timestamp > (1000 * 60 * 60) ? null : localStorage.get( storageKey + hash( postIds ) );
 
     if ( !hits && postIds.length > 0 ) {
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
         if ( xhr.readyState === 4 ) {
-          localstorageHandle.update( storageKeyBase + hash( postIds ), xhr.responseText );
-          localstorageHandle.update( storageKeyBase + hash( postIds ) + '_timestamp', Date.now() );
+          localStorage.update( storageKey + hash( postIds ), xhr.responseText );
+          localStorage.update( storageKey + hash( postIds ) + '_timestamp', Date.now() );
           updateHits( xhr.responseText );
         }
       };

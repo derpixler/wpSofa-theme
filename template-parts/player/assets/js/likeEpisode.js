@@ -18,7 +18,7 @@ const likeEpisode = async () => {
   const restBaseUrl = window.wpsofa.rest_url;
 
   /** @var {int} currentLikes */
-  const currentLikes = 0;
+  let currentLikes = 0;
 
   /**
    * @namespace LikeEpisodeObject
@@ -27,9 +27,7 @@ const likeEpisode = async () => {
    * @property {object} toggle  - handle toggle events
    */
   const likeEpisodeObject = {
-
     /**
-     * @constant {Node} mediaPlayerParentNode
      * @constant {int} likeCount  - exiting like counts
      * @constant {bool} liked     - still liked episode by fetch state from users localstorage
      * @constant {Node} likeBtn
@@ -42,6 +40,12 @@ const likeEpisode = async () => {
           likeEpisodeObject.validate.datasetAttributes( likeBtn, reject );
 
           if ( likeBtn ) {
+
+            /* switch classes if already liked */
+            if (likeEpisodeObject.validate.liked( likeBtn )) {
+              likeEpisodeObject.toggle.classes(likeBtn);
+            }
+
             /* update likeBtn count state */
             likeEpisodeObject.fetch.restApi(
                 'get', {
@@ -65,7 +69,6 @@ const likeEpisode = async () => {
      * @property {function} click - click event for likeBtn
      */
     events: {
-
       /**
        * Handle the click on a likeBtn
        * @namespace LikeEpisodeObject/events/click
@@ -95,7 +98,6 @@ const likeEpisode = async () => {
      * @property {async.function} restApi - fetch wpsofa/v1 wordpress rest endpoint
      */
     fetch: {
-
       /**
        * Async wordpress restApi fetch method
        * @namespace LikeEpisodeObject/fetch/restApi
@@ -146,7 +148,6 @@ const likeEpisode = async () => {
      * @property {function} eventListener - add ore remove eventListener on a node
      */
     toggle: {
-
       /**
        * Change classes on likeBtn node
        *
@@ -171,7 +172,7 @@ const likeEpisode = async () => {
        * @return void
        */
       eventListener: ( node, event, callback ) => {
-                likeEpisodeObject.validate.liked( node ) === null ? node.addEventListener( event, callback ) : node.removeEventListener( event, callback );
+        likeEpisodeObject.validate.liked( node ) === null ? node.addEventListener( event, callback ) : node.removeEventListener( event, callback );
       },
     },
 
@@ -184,7 +185,7 @@ const likeEpisode = async () => {
     validate: {
       datasetAttributes: ( likeBtn, reject ) => {
         if ( !likeBtn.dataset.episodeId ) {
-          console.error( '\n Dataset \'episodeId\' are undefined! \n Define a data attribute on your \'.episodeLike\' Element. \n example: <span class=\'episodeLike\' data-episode-id=\'[VALUE]]\'></span>' );
+          console.error( new Error('\n Dataset \'episodeId\' are undefined! \n Define a data attribute on your \'.episodeLike\' Element. \n example: <span class=\'episodeLike\' data-episode-id=\'[VALUE]]\'></span>' ));
           reject();
         }
 

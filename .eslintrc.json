@@ -13,6 +13,6 @@
         "ecmaVersion": 2018
     },
     "rules": {
-        "max-len": [1, 110, 4, { "ignoreComments": true }]
+        "max-len": [1, 135, 4, { "ignoreComments": true }]
     }
 }

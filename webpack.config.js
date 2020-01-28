@@ -121,14 +121,14 @@ module.exports = async (env, argv) => {
             loader: 'babel-loader',
           },
         },
-        {
+        /*{
           test: /\.js$/,
           exclude: [/node_modules/, /\webpack.*.js$/],
           loader: 'eslint-loader',
           options: {
             fix: true,
           },
-        },
+        },*/
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/,
           loader: 'url-loader?limit=100000',
