@@ -54,3 +54,6 @@ $wpSofaPlayer['mediafiles'] = [
 	<?php get_template_part($wpSofaPlayer['themePartName'] . 'userInterAction'); ?>
 	<?php get_template_part($wpSofaPlayer['themePartName'] . 'jsonLD'); ?>
 </section>
+
+
+<pre><code class="html">.....</code></pre>

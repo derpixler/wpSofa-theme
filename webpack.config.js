@@ -47,7 +47,7 @@ module.exports = async (env, argv) => {
 
   const entries = (moduleBase, webpackImports) => {
     const entries = {
-      coreBundle: glob.sync('./assets/js/**/*.js'),
+      coreBundle: glob.sync('./assets/js/**/*.js')
     };
 
     const webpackFiles = glob.sync('./' + moduleBase + '/**/assets/' + webpackImports);

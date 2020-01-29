@@ -19,8 +19,9 @@
     "Firefox > 50"
   ],
   "dependencies": {
+    "@web-dev-media/localstorage": "^1.0.2",
     "applyfilters": "^1.0.22",
-    "@web-dev-media/localstorage": "^1.0.2"
+    "highlight.js": "^9.18.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
