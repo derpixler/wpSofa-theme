@@ -4,17 +4,9 @@ document.addEventListener( 'DOMContentLoaded', function( event ) {
 
 	let heighlighter = document.querySelectorAll( "pre code" );
 
-	console.log(heighlighter);
-/*
-
-	window.observeElements( heighlighter, () => {
-		import(/!* webpackChunkName: "heighlight-scss" *!/'../scss/heighlight.scss');
-		import(/!* webpackChunkName: "heighlight-js" *!/ "./heighlight.js").then( controls => {
-			const hljs = require('./highlight.js');
-			console.log('heighlight');
-			hljs.highlightBlock(heighlighter);
-		} );
+	window.observeElements( heighlighter, (codeBLock) => {
+		import(/* webpackChunkName: "heighlight-scss" */'../scss/prism.scss');
+			const Prism = require('prismjs');
+			codeBLock.innerHTML = Prism.highlight(codeBLock.innerText, Prism.languages.javascript, 'javascript');
 	}, {loop: false} );
-*/
-
 });

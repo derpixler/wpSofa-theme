@@ -21,7 +21,7 @@
   "dependencies": {
     "@web-dev-media/localstorage": "^1.0.2",
     "applyfilters": "^1.0.22",
-    "highlight.js": "^9.18.0"
+    "prismjs": "^1.19.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
