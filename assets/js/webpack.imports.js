@@ -5,7 +5,7 @@ document.addEventListener( 'DOMContentLoaded', function( event ) {
 	let heighlighter = document.querySelectorAll( "pre code" );
 
 	window.observeElements( heighlighter, (codeBLock) => {
-		import(/* webpackChunkName: "heighlight-scss" */'../scss/prism.scss');
+		import(/* webpackChunkName: "prism-scss" */'../scss/prism.scss');
 			const Prism = require('prismjs');
 			codeBLock.innerHTML = Prism.highlight(codeBLock.innerText, Prism.languages.javascript, 'javascript');
 	}, {loop: false} );
